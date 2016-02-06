@@ -15,3 +15,5 @@ class Continents extends DomainObject
         parent::__construct($data, $generateExc);
     }
 }
+
+?>
