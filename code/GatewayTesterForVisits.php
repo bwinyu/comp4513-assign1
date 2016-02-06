@@ -73,6 +73,25 @@ echo '<h3>Test findById(BF)</h3>';
 $result = $gate->findById('BF');
 echo $result->ISO . " - " . $result->CountryName;
 
+//Test for DeviceTypes
+echo '<hr/>';
+echo '<h2>Test DeviceTypesTableGateway</h2>';
+
+echo '<h3>Test findAllSorted()</h3>';
+$gate = new DeviceTypesTableGateway($dbAdapter);
+$result = $gate->findAllSorted(true);
+foreach ($result as $row) {
+    echo $row->id . " - " . $row->name . "<br/>";
+}
+
+echo '<h3>Test findById(3)</h3>';
+$result = $gate->findById(3);
+echo $result->id . " - " . $result->name;
+
+
+
+
+
 // all done close connection
 $dbAdapter->closeConnection();
 
