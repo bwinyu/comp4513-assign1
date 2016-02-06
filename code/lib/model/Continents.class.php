@@ -1,10 +1,9 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: matt
- * Date: 04/02/16
- * Time: 10:20 PM
+/*
+   Represents a single row for the continents table.
+
+   This a concrete implementation of the Domain Model pattern.
  */
 class Continents extends DomainObject
 {

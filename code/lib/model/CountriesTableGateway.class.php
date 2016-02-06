@@ -1,8 +1,9 @@
 <?php
+
 /*
-  Table Data Gateway for the continents table.
+  Table Data Gateway for the countries table.
  */
-class ContinentsTableGateway extends TableDataGateway
+class CountriesTableGateway extends TableDataGateway
 {
     public  function __construct($dbAdapter)
     {
@@ -11,23 +12,20 @@ class ContinentsTableGateway extends TableDataGateway
 
     protected function getDomainObjectClassName()
     {
-        return "Continents";
+        return "Countries";
     }
 
     protected function getTableName()
     {
-        return "continents";
+        return "countries";
     }
 
     protected function getOrderFields()
     {
-        return "ContinentName";
+        return "CountryName";
     }
-
     protected function getPrimaryKeyName()
     {
-        return "ContinentCode";
+        return "ISO";
     }
-}
-
-?>
+}?>
