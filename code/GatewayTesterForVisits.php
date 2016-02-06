@@ -57,6 +57,22 @@ echo '<h3>Test findById(OC)</h3>';
 $result = $gate->findById('OC');
 echo $result->ContinentCode . " - " . $result->ContinentName;
 
+
+//Test for Countries
+echo '<hr/>';
+echo '<h2>Test CountriesTableGateway</h2>';
+
+echo '<h3>Test findAllSorted()</h3>';
+$gate = new CountriesTableGateway($dbAdapter);
+$result = $gate->findAllSorted(true);
+foreach ($result as $row) {
+    echo $row->ISO . " - " . $row->CountryName . "<br/>";
+}
+
+echo '<h3>Test findById(BF)</h3>';
+$result = $gate->findById('BF');
+echo $result->ISO . " - " . $result->CountryName;
+
 // all done close connection
 $dbAdapter->closeConnection();
 
