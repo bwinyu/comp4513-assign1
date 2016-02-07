@@ -56,8 +56,50 @@ class VisitsTableGateway extends TableDataGateway
         return $results;
     }
 
+    /**
+     * Retrieves all entries with a specific device type ID
+     *
+     * @param $deviceTypeID - numeric device type ID to filter by [e.g. 1]
+     * @return array - all records matching device type ID
+     */
+    public function filterByDeviceType($deviceTypeID)
+    {
+        $where = 'device_type_id=?';
+        $param = ($deviceTypeID);
+        $results = $this->findBy($where, $param);
 
+        return $results;
+    }
 
+    /**
+     * Retrieves all entries with a specific device brand ID
+     *
+     * @param $deviceBrandID - numeric device brand ID to filter by [e.g. 1]
+     * @return array - all records matching device brand ID
+     */
+    public function filterByDeviceBrand($deviceBrandID)
+    {
+        $where = 'device_brand_id=?';
+        $param = ($deviceBrandID);
+        $results = $this->findBy($where, $param);
+
+        return $results;
+    }
+
+    /**
+     * Retrieves all entries with a specific OS ID
+     *
+     * @param $osID - numeric OS ID to filter by [e.g. 1]
+     * @return array - all records matching OSID
+     */
+    public function filterByOS($osID)
+    {
+        $where = 'os_id=?';
+        $param = ($osID);
+        $results = $this->findBy($where, $param);
+
+        return $results;
+    }
 }
 
 ?>

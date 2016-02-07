@@ -135,12 +135,19 @@ echo '<h2>Test VisitsTableGateway</h2>';
 //echo $result->id . " - " . $result->ip_address;
 
 
+//
+//echo '<h3>Test filterByBrowser(2)</h3>';
+//$gate = new VisitsTableGateway($dbAdapter);
+//$result = $gate->filterByBrowser(2);
+//foreach ($result as $row) {
+//    echo $row->id . " - " . $row->browser_id .' - '. $row->ip_address . "<br/>";
+//}
 
-echo '<h3>Test filterByBrowser(2)</h3>';
+echo '<h3>Test filterByOS(4)</h3>';
 $gate = new VisitsTableGateway($dbAdapter);
-$result = $gate->filterByBrowser(2);
+$result = $gate->filterByOS(4);
 foreach ($result as $row) {
-    echo $row->id . " - " . $row->browser_id .' - '. $row->ip_address . "<br/>";
+    echo $row->id . " - " . $row->os_id . ' - ' . $row->ip_address . "<br/>";
 }
 // all done close connection
 $dbAdapter->closeConnection();
