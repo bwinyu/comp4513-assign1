@@ -100,6 +100,21 @@ class VisitsTableGateway extends TableDataGateway
 
         return $results;
     }
+
+    /**
+     * Retrieves all entries with a referrer ID
+     *
+     * @param $referrerID - numeric referrer ID to filter by [e.g. 1]
+     * @return array - all records matching referrer ID
+     */
+    public function filterByReferrer($referrerID)
+    {
+        $where = 'referrer_id=?';
+        $param = ($referrerID);
+        $results = $this->findBy($where, $param);
+
+        return $results;
+    }
 }
 
 ?>

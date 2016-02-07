@@ -145,9 +145,9 @@ echo '<h2>Test VisitsTableGateway</h2>';
 
 echo '<h3>Test filterByOS(4)</h3>';
 $gate = new VisitsTableGateway($dbAdapter);
-$result = $gate->filterByOS(4);
+$result = $gate->filterByReferrer(5);
 foreach ($result as $row) {
-    echo $row->id . " - " . $row->os_id . ' - ' . $row->ip_address . "<br/>";
+    echo $row->id . " - " . $row->referrer_id . ' - ' . $row->ip_address . "<br/>";
 }
 // all done close connection
 $dbAdapter->closeConnection();
