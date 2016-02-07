@@ -123,19 +123,25 @@ echo $result->id . " - " . $result->name;
 echo '<hr/>';
 echo '<h2>Test VisitsTableGateway</h2>';
 
-echo '<h3>Test findAllSorted()</h3>';
+//echo '<h3>Test filterByC0untryCode(BF)</h3>';
+//$gate = new VisitsTableGateway($dbAdapter);
+//$result = $gate->filterByCountryCode('BF');
+//foreach ($result as $row) {
+//    echo $row->id . " - " . $row->ip_address . "<br/>";
+//}
+//
+//echo '<h3>Test findById(3)</h3>';
+//$result = $gate->findById(3);
+//echo $result->id . " - " . $result->ip_address;
+
+
+
+echo '<h3>Test filterByBrowser(2)</h3>';
 $gate = new VisitsTableGateway($dbAdapter);
-$result = $gate->filterByCountryCode('BF');
+$result = $gate->filterByBrowser(2);
 foreach ($result as $row) {
-    echo $row->id . " - " . $row->ip_address . "<br/>";
+    echo $row->id . " - " . $row->browser_id .' - '. $row->ip_address . "<br/>";
 }
-
-echo '<h3>Test findById(3)</h3>';
-$result = $gate->findById(3);
-echo $result->id . " - " . $result->ip_address;
-
-
-
 // all done close connection
 $dbAdapter->closeConnection();
 
