@@ -92,11 +92,11 @@ abstract class TableDataGateway
       if (! is_null($sortFields)) {
          $sql .= ' ORDER BY ' . $sortFields;
       }
-      $result = $this->dbAdapter->fetchAsArray($sql, $parameterValues); 
+      $results = $this->dbAdapter->fetchAsArray($sql, $parameterValues);
       if (is_null($results))
           return $results;
       else          
-          return $this->convertRecordsToObjects($result);
+          return $this->convertRecordsToObjects($results);
    }  
    /*
       Returns a record for the specificed ID
