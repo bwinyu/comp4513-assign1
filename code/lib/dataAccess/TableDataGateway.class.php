@@ -110,8 +110,24 @@ abstract class TableDataGateway
           return $results;
       else
         return $this->convertRowToObject($results);
-   }   
- 
+   }
+
+   /**
+    * @param $whereClause - the WHERE clause [e.g., 'ID=? or Name Like ?' or 'price>?' ]
+    * @param $countField - the field to count. Default is '*'
+    * @param array $parameterValues - an array of parameter values [e.g., Array(6,'Fred') or Array(6) ]
+    * @return array Re
+    */
+   public function countBy($whereClause,  $parameterValues=array())
+   {
+      $sql = "SELECT COUNT(*) AS count FROM " . $this->getTableName() . ' WHERE ' . $whereClause . "=?";
+
+      $results = $this->dbAdapter->fetchRow($sql, $parameterValues);
+      if (is_null($results))
+         return $results;
+      else
+          return $this->convertRowToObject($results)->count;
+   }
 
    //
    // HELPERS
@@ -124,7 +140,8 @@ abstract class TableDataGateway
    {
       $className = $this->getDomainObjectClassName();
       return "SELECT " . $className::fieldNameList() . " FROM " . $this->getTableName();
-   }   
+   }
+
    /*
       Converts the array of record data that comes from the database adapter into
       an object of the appropriate Domain Object subclass type
