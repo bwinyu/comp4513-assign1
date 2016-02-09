@@ -143,12 +143,19 @@ echo '<h2>Test VisitsTableGateway</h2>';
 //    echo $row->id . " - " . $row->browser_id .' - '. $row->ip_address . "<br/>";
 //}
 
-echo '<h3>Test filterByOS(4)</h3>';
+//echo '<h3>Test filterByOS(4)</h3>';
+//$gate = new VisitsTableGateway($dbAdapter);
+//$result = $gate->filterByReferrer(5);
+//foreach ($result as $row) {
+//    echo $row->id . " - " . $row->referrer_id . ' - ' . $row->ip_address . "<br/>";
+//}
+
 $gate = new VisitsTableGateway($dbAdapter);
-$result = $gate->filterByReferrer(5);
-foreach ($result as $row) {
-    echo $row->id . " - " . $row->referrer_id . ' - ' . $row->ip_address . "<br/>";
-}
+echo '<h3>Test countBy(browser_id=5)</h3>';
+$result = $gate->countBy('browser_id', (5));
+echo $result;
+
+
 // all done close connection
 $dbAdapter->closeConnection();
 
