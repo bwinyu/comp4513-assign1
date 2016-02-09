@@ -151,8 +151,8 @@ echo '<h2>Test VisitsTableGateway</h2>';
 //}
 
 $gate = new VisitsTableGateway($dbAdapter);
-echo '<h3>Test countBy(browser_id=5)</h3>';
-$result = $gate->countBy('browser_id', (5));
+echo '<h3>Test countBy</h3>';
+$result = $gate->countByOS('1');
 echo $result;
 
 

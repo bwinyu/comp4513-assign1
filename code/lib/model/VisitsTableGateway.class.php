@@ -115,6 +115,91 @@ class VisitsTableGateway extends TableDataGateway
 
         return $results;
     }
+
+    /**
+     * Retrieves count of entries with ISO code
+     *
+     * @param $code two-character ISO country code to filter by [e.g. 'CA']
+     * @return integer - count of entries matching country code
+     */
+    public function countByCountryCode($code){
+        $where = 'country_code=?';
+        $param = ($code);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
+    /**
+     * Retrieves count of entries device type ID
+     *
+     * @param $deviceTypeID - numeric device type ID [e.g. 1]
+     * @return integer - count of entries matching device type ID
+     */
+    public function countByDeviceType($deviceTypeID){
+        $where = 'device_type_id=?';
+        $param = ($deviceTypeID);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
+    /**
+     * Retrieves count of entries device brand ID
+     *
+     * @param $deviceBrandID - numeric device brand ID [e.g. 1]
+     * @return integer - count of entries matching device brand ID
+     */
+    public function countByDeviceBrand($deviceBrandID){
+        $where = 'device_brand_id=?';
+        $param = ($deviceBrandID);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
+    /**
+     * Retrieves count of entries browser ID
+     *
+     * @param $browserID - numeric browser ID [e.g. 1]
+     * @return integer - count of entries matching browser ID
+     */
+    public function countByBrowser($browserID){
+        $where = 'browser_id=?';
+        $param = ($browserID);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
+    /**
+     * Retrieves count of entries referrer ID
+     *
+     * @param $referrerID - numeric referrer ID [e.g. 1]
+     * @return integer - count of entries matching referrer ID
+     */
+    public function countByReferrer($referrerID){
+        $where = 'referrer_id=?';
+        $param = ($referrerID);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
+    /**
+     * Retrieves count of entries OS ID
+     *
+     * @param $osID - numeric OS ID [e.g. 1]
+     * @return integer - count of entries matching OS ID
+     */
+    public function countByOS($osID){
+        $where = 'referrer_id=?';
+        $param = ($osID);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
 }
 
 ?>
