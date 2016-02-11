@@ -28,4 +28,19 @@ class CountriesTableGateway extends TableDataGateway
     {
         return "ISO";
     }
+
+    /**
+     * Retrieves all entries with a specific continent code
+     *
+     * @param $continentCode - contenent code to filter by
+     * @return array - all records matching contenent code
+     */
+    public function filterByContinentCode($continentCode)
+    {
+        $where = 'continent=?';
+        $param = ($continentCode);
+        $results = $this->findBy($where, $param);
+
+        return $results;
+    }
 }?>
