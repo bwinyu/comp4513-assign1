@@ -13,12 +13,12 @@ function createJson($array, $attributes)
 
     foreach($attributes as $key)
     {
+        if ($key != "PostalCodeFormat" || $key != "PostalCodeRegex")
         foreach ($array as $row)
         {
-            $dataToJSON[$key][]=$row->$key;
+            $dataToJSON[$key][]= (string)$row->$key;
         }
     }
-
 
     return json_encode($dataToJSON);
 }
@@ -30,7 +30,7 @@ function pullData ($userData)
     $BrowserAttributes = Browser::getFieldNames();
     $ContinentsToPull = new ContinentsTableGateway($dbAdapter);
     $ContinentsAttributes = Continents::getFieldNames();
-    $CountriesToPull = new ContinentsTableGateway($dbAdapter);
+    $CountriesToPull = new CountriesTableGateway($dbAdapter);
     $CountriesAttributes = Countries::getFieldNames();
     $DeviceBrandToPull = new DeviceBrandTableGateway($dbAdapter);
     $DeviceBrandAttributes = DeviceBrand::getFieldNames();
