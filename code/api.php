@@ -2,6 +2,8 @@
 header("Content-Type:application/json");
 header("Access-Control-Allow-Origin: *");
 
+$actionFunction = array ();
+
 foreach (glob("code/lib/model/*.php") as $filename)
 {
     include $filename;
@@ -98,22 +100,66 @@ function pullData ($userData, $userAttr)
         }
     }
 }
+
+function countData($userData, $countType, $param)
+{
+    require_once('lib/helpers/visits-setup.inc.php');
+    $BrowsersToPull = new BrowserTableGateway($dbAdapter);
+    $BrowserAttributes = Browser::getFieldNames();
+    $ContinentsToPull = new ContinentsTableGateway($dbAdapter);
+    $ContinentsAttributes = Continents::getFieldNames();
+    $CountriesToPull = new CountriesTableGateway($dbAdapter);
+    $CountriesAttributes = Countries::getFieldNames();
+    $DeviceBrandToPull = new DeviceBrandTableGateway($dbAdapter);
+    $DeviceBrandAttributes = DeviceBrand::getFieldNames();
+    $DeviceTypeToPull = new DeviceTypesTableGateway($dbAdapter);
+    $DeviceTypeAttributes = DeviceTypes::getFieldNames();
+    $OperatingSystemsToPull = new OperatingSystemsTableGateway($dbAdapter);
+    $OperatingSystemsAttributes = OperatingSystems::getFieldNames();
+    $ReferrersToPull = new ReferrersTableGateway($dbAdapter);
+    $ReferrersAttributes = Referrers::getFieldNames();
+    $VisitsToPull = new VisitsTableGateway($dbAdapter);
+    $VisitsAttributes = Visits::getFieldNames();
+    $dataSets = array("Browsers", "Continents", "Countries", "DeviceBrand", "DeviceType", "OperatingSystems", "Referrers", "Visits");
+
+    if (in_array($userData, $dataSets))
+    {
+        switch($userData)
+        {
+            case "Visits":
+                if ($countType == "month")
+                    $dataOutput = $VisitsToPull->countByMonth((int) $param);
+                echo json_encode($dataOutput);
+                break;
+        }
+    }
+}
 ?>
 
 <?php
-    if(!isset($_GET['data']))
-        echo json.encode(null);
-
-    if (!isset($_GET['attr'])) {
-        $data = $_GET['data'];
-        $attr = null;
-    }
-    else
+    if(isset($_GET['data']))
     {
         $data = $_GET['data'];
-        $attr = $_GET['attr'];
+        if(isset($_GET['count']))
+        {
+            $action = $_GET['count'];
+            if(isset($_GET['param']))
+            {
+                $param = $_GET['param'];
+                countData($data, $action, $param);
+            }
+        }
+        else
+        {
+            if (isset($_GET['attr']))
+            {
+                $attr = $_GET['attr'];
+                pullData($data, $attr);
+            }
+        }
+
     }
 
-    pullData($data, $attr);
+
 ?>
 
