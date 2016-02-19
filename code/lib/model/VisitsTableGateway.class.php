@@ -200,6 +200,22 @@ class VisitsTableGateway extends TableDataGateway
         return $results;
     }
 
+    /**
+     * Retrieves count of entries by month, gets current year and uses that as per data
+     *
+     * @param $month numerical value of month to filter by [e.g. '12' for December]
+     * @return integer - count of entries matching country code
+     */
+    public function countByMonth($month){
+        $where = 'DATE_FORMAT(visit_date, \'%Y\') = DATE_FORMAT(SYSDATE(), \'%Y\')
+        AND DATE_FORMAT(visit_date, \'%m\') = ?';
+
+        $param = ($month);
+        $results = $this->countBy($where, $param);
+
+        return $results;
+    }
+
 }
 
 ?>
