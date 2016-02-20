@@ -208,7 +208,7 @@ class VisitsTableGateway extends TableDataGateway
      */
     public function countByMonth($month){
         $where = 'DATE_FORMAT(visit_date, \'%Y\') = DATE_FORMAT(SYSDATE(), \'%Y\')
-        AND DATE_FORMAT(visit_date, \'%m\') = ?';
+        AND DATE_FORMAT(visit_date, \'%b\') = ?';
 
         $param = ($month);
         $results = $this->countBy($where, $param);
