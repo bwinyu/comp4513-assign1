@@ -128,7 +128,7 @@ function countData($userData, $countType, $param)
         {
             case "Visits":
                 if ($countType == "month")
-                    $dataOutput = $VisitsToPull->countByMonth((int) $param);
+                    $dataOutput = $VisitsToPull->countByMonth($param);
                 echo json_encode($dataOutput);
                 break;
         }
@@ -151,11 +151,15 @@ function countData($userData, $countType, $param)
         }
         else
         {
-            if (isset($_GET['attr']))
+            if (!isset($_GET['attr']))
+            {
+                $attr = null;
+            }
+            else
             {
                 $attr = $_GET['attr'];
-                pullData($data, $attr);
             }
+            pullData($data, $attr);
         }
 
     }
