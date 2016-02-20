@@ -9,7 +9,7 @@
  */
 
 /*
- * Function that creates a table basde on headers and data retrieved from database
+ * Function that creates a table based on headers and data retrieved from database
  */
 function createTable ($headers, $tableData) {
    $tableHtml = "<table class=\"mdl-data-table mdl-cell mdl-cell--12-col mdl-shadow--2dp\">";
