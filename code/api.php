@@ -134,11 +134,45 @@ function countData($userData, $actionType, $param)
                     $dataOutput = $VisitsToPull->visitsByDayForMonth($param);
                     $dataOutput = createJson($dataOutput, array("Visits","Date"), null);
                 }
+				elseif($actionType == "countbycountrycode")
+				{
+					$dataOutput = $VisitsToPull->countByCountryCode($param);
+					
+				}
+				elseif($actionType == "countbydevicetype")
+				{
+					$dataOutput = $VisitsToPull->countByDeviceType($param);
+				}
+				elseif($actionType == "countbydevicebrand")
+				{
+					$dataOutput = $VisitsToPull->countByDeviceBrand($param);
+				}
+				elseif($actionType == "countbybrowser")
+				{
+					$dataOutput = $VisitsToPull->countByBrowser($param);
+				}
+				elseif($actionType == "countbyreferrer")
+				{
+					$dataOutput = $VisitsToPull->countByReferrer($param);
+				}
+				elseif($actionType == "countbyos")
+				{
+					$dataOutput = $VisitsToPull->countByOS($param);
+				}
                 else
                     echo null;
                 echo json_encode($dataOutput);
                 break;
+            case "Countries":
+                if($actionType == "filterbycontinentcode")
+                {
+                    echo "hello";
+                    $dataOutput = $CountriesToPull->filterByContinentCode($param);
+                }
+            break;
+
         }
+
     }
 }
 ?>
