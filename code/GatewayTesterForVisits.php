@@ -155,7 +155,7 @@ echo '<h3>Test countBy</h3>';
 $gate = new countriesTableGateway($dbAdapter);
 $result = $gate->visitsByCountry();
 foreach ($result as $row) {
-    echo $row->CountryName . " - " . $row->Visits . "<br/>";
+    echo $row->CountryName . " - " . $row->Visits . ' - '.$row->ISO . "<br/>";
 }
 
 

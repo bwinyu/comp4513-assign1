@@ -120,6 +120,7 @@ abstract class TableDataGateway
     */
    public function countBy($whereClause,  $parameterValues=array())
    {
+
       $sql = "SELECT COUNT(*) AS count FROM " . $this->getTableName() . ' WHERE ' . $whereClause;
 
       $results = $this->dbAdapter->fetchRow($sql, $parameterValues);
