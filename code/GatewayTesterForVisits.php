@@ -152,10 +152,10 @@ require_once('lib/helpers/visits-setup.inc.php');
 
 $gate = new VisitsTableGateway($dbAdapter);
 echo '<h3>Test countBy</h3>';
-$gate = new countriesTableGateway($dbAdapter);
-$result = $gate->visitsByCountry();
+$gate = new visitsTableGateway($dbAdapter);
+$result = $gate->countByDay('jan');
 foreach ($result as $row) {
-    echo $row->CountryName . " - " . $row->Visits . ' - '.$row->ISO . "<br/>";
+    echo $row->Date .' - ' . $row->Visits . "<br/>";
 }
 
 
