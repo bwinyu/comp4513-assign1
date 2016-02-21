@@ -51,7 +51,7 @@ class CountriesTableGateway extends TableDataGateway
     public function visitsByCountry()
     {
 
-        $sql = "SELECT countries.CountryName, Count(visits.ID) AS Visits FROM countries INNER JOIN visits ON countries.ISO = visits.country_code GROUP BY countries.CountryName HAVING Count(visits.ID) > 10";
+        $sql = "SELECT ISO, countries.CountryName, Count(visits.ID) AS Visits FROM countries INNER JOIN visits ON countries.ISO = visits.country_code GROUP BY countries.CountryName HAVING Count(visits.ID) > 10";
 
         $results = $this->dbAdapter->fetchAsArray($sql);
         if (is_null($results))

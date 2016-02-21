@@ -140,11 +140,13 @@ function countData($userData, $countType, $param)
     if(isset($_GET['data']))
     {
         $data = $_GET['data'];
+        $data = ucfirst($data);
         if(isset($_GET['count']))
         {
             $action = $_GET['count'];
             if(isset($_GET['param']))
             {
+
                 $param = $_GET['param'];
                 countData($data, $action, $param);
             }
@@ -159,6 +161,7 @@ function countData($userData, $countType, $param)
             {
                 $attr = $_GET['attr'];
             }
+            echo $data;
             pullData($data, $attr);
         }
 

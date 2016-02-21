@@ -216,6 +216,30 @@ class VisitsTableGateway extends TableDataGateway
         return $results;
     }
 
+
+    /**
+     * Retrieves the number of visits per day for a given month
+     *
+     * @param $month - month to filter by - i.e. 'jan'
+     * @return array of visit objects
+     */
+    public function visitsByDayForMonth($month){
+        $sql = 'SELECT count(id) AS Visits, DATE(visit_date) AS Date from visits
+                WHERE DATE_FORMAT(visit_date, \'%Y\') = DATE_FORMAT(SYSDATE(), \'%Y\')
+                AND DATE_FORMAT(visit_date, \'%b\') = ?
+                GROUP BY visit_date';
+
+
+        $param = ($month);
+
+        $results = $this->dbAdapter->fetchAsArray($sql, $param);
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
+
 }
 
 ?>
