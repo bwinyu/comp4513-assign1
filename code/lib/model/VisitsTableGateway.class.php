@@ -239,6 +239,41 @@ class VisitsTableGateway extends TableDataGateway
             return $this->convertRecordsToObjects($results);
     }
 
+    /**
+     * Joins all the tables and returns the human readable data. i.e country name, OS name rather than ISO code or osID
+     *
+     * @param null $where - Column names for where clause
+     * @param null $param Parameters for where clause in. Must be in an Array i.e. ('Canada', 'USA')
+     * @return array - array of records returned from query
+     */
+    public function filterVisitsData($where=null, $param=null){
+        $sql = 'SELECT visits.id, visits.ip_address, countries.CountryName AS Country, DATE(visits.visit_date) AS Date, TIME(visits.visit_time) AS Time, device_types.name as DeviceType,
+                device_brands.name as DeviceBrand, browsers.name AS Browser, referrers.name as Referrer, operating_systems.name AS OS FROM referrers INNER JOIN (operating_systems
+                INNER JOIN (device_types INNER JOIN (device_brands INNER JOIN (countries INNER JOIN (browsers INNER JOIN visits
+                ON browsers.ID = visits.browser_id) ON countries.ISO = visits.country_code) ON device_brands.ID = visits.device_brand_id)
+                ON device_types.ID = visits.device_type_id) ON operating_systems.ID = visits.os_id) ON referrers.id = visits.referrer_id';
+
+        if($where != null){
+
+            $clause = ' ' . $where[0] . '=?';
+            for($i = 1; $i< sizeof($where); $i++){
+                $clause .= ' AND ' . $where[$i] . "=?";
+            }
+
+            $sql.=' HAVING ' . $clause;
+        }
+
+        $sql.= ' LIMIT 100';
+
+
+
+        $results = $this->dbAdapter->fetchAsArray($sql, $param);
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
 
 }
 
