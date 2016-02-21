@@ -254,12 +254,12 @@ class VisitsTableGateway extends TableDataGateway
                 ON device_types.ID = visits.device_type_id) ON operating_systems.ID = visits.os_id) ON referrers.id = visits.referrer_id';
 
         if($where != null){
-
+            // Building where parameters
             $clause = ' ' . $where[0] . '=?';
             for($i = 1; $i< sizeof($where); $i++){
                 $clause .= ' AND ' . $where[$i] . "=?";
             }
-
+            // Using HAVING instead of WHERE since it recognizes aliases
             $sql.=' HAVING ' . $clause;
         }
 
