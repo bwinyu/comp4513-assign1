@@ -153,7 +153,7 @@ require_once('lib/helpers/visits-setup.inc.php');
 $gate = new VisitsTableGateway($dbAdapter);
 echo '<h3>Test countBy</h3>';
 $gate = new visitsTableGateway($dbAdapter);
-$result = $gate->countByDay('jan');
+$result = $gate->visitsByDayForMonth('jan');
 foreach ($result as $row) {
     echo $row->Date .' - ' . $row->Visits . "<br/>";
 }

@@ -18,6 +18,7 @@ function createJson($array, $attributes, $userAttr)
         foreach ($attributes as $key) {
             foreach ($array as $row) {
                 $dataToJSON[$key][] = (string)$row->$key;
+                print_r($row->fieldValues);
             }
         }
     }
@@ -101,7 +102,7 @@ function pullData ($userData, $userAttr)
     }
 }
 
-function countData($userData, $countType, $param)
+function countData($userData, $actionType, $param)
 {
     require_once('lib/helpers/visits-setup.inc.php');
     $BrowsersToPull = new BrowserTableGateway($dbAdapter);
@@ -127,11 +128,51 @@ function countData($userData, $countType, $param)
         switch($userData)
         {
             case "Visits":
-                if ($countType == "month")
+                if ($actionType == "countmonth")
                     $dataOutput = $VisitsToPull->countByMonth($param);
+                elseif ($actionType == "countmonthbyday") {
+                    $dataOutput = $VisitsToPull->visitsByDayForMonth($param);
+                    $dataOutput = createJson($dataOutput, array("Visits","Date"), null);
+                }
+				elseif($actionType == "countbycountrycode")
+				{
+					$dataOutput = $VisitsToPull->countByCountryCode($param);
+					
+				}
+				elseif($actionType == "countbydevicetype")
+				{
+					$dataOutput = $VisitsToPull->countByDeviceType($param);
+				}
+				elseif($actionType == "countbydevicebrand")
+				{
+					$dataOutput = $VisitsToPull->countByDeviceBrand($param);
+				}
+				elseif($actionType == "countbybrowser")
+				{
+					$dataOutput = $VisitsToPull->countByBrowser($param);
+				}
+				elseif($actionType == "countbyreferrer")
+				{
+					$dataOutput = $VisitsToPull->countByReferrer($param);
+				}
+				elseif($actionType == "countbyos")
+				{
+					$dataOutput = $VisitsToPull->countByOS($param);
+				}
+                else
+                    echo null;
                 echo json_encode($dataOutput);
                 break;
+            case "Countries":
+                if($actionType == "filterbycontinentcode")
+                {
+                    echo "hello";
+                    $dataOutput = $CountriesToPull->filterByContinentCode($param);
+                }
+            break;
+
         }
+
     }
 }
 ?>
@@ -141,9 +182,9 @@ function countData($userData, $countType, $param)
     {
         $data = $_GET['data'];
         $data = ucfirst($data);
-        if(isset($_GET['count']))
+        if(isset($_GET['action']))
         {
-            $action = $_GET['count'];
+            $action = $_GET['action'];
             if(isset($_GET['param']))
             {
 

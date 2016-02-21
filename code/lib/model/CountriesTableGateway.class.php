@@ -37,6 +37,7 @@ class CountriesTableGateway extends TableDataGateway
      */
     public function filterByContinentCode($continentCode)
     {
+        echo "hello";
         $where = 'continent=?';
         $param = ($continentCode);
         $results = $this->findBy($where, $param);
