@@ -80,7 +80,7 @@ function pullData ($userData)
     }
 }
 
-function countData($userData, $actionType, $param)
+function countData($userData, $actionType, $param, $param2)
 {
     require_once('lib/helpers/visits-setup.inc.php');
     $BrowsersToPull = new BrowserTableGateway($dbAdapter);
@@ -136,6 +136,14 @@ function countData($userData, $actionType, $param)
 				{
 					$dataOutput = $VisitsToPull->countByOS($param);
 				}
+                elseif ($actionType == "filtervisitsdata")
+                {
+                    $dataOutput = $VisitsToPull->filterVisitsData($param, $param2);
+                }
+                elseif ($actionType == "visitsforbarchart")
+                {
+                    $dataOutput = $VisitsToPull->visitsForBarChart($param);
+                }
                 else
                     echo null;
                 echo json_encode($dataOutput);
@@ -153,10 +161,13 @@ function countData($userData, $actionType, $param)
                     echo json_encode($dataOutput);
                     break;
                 }
-                else if ($actionType == "visitsbycountry")
+                elseif ($actionType == "visitsbycountry")
                 {
-                    
+                    $dataOutput = $CountriesToPull->visitsByCountry($param);
+                    echo json_encode($dataOutput);
+                    break;
                 }
+
                 else
                     echo null;
             break;
@@ -173,11 +184,24 @@ function countData($userData, $actionType, $param)
         if(isset($_GET['action']))
         {
             $action = $_GET['action'];
-            if(isset($_GET['param']))
+            if(isset($_GET['param']) && !isset($_GET['param2']))
             {
-
                 $param = $_GET['param'];
-                countData($data, $action, $param);
+                $pos = strpos($param, ',');
+                if ($pos !== false)
+                {
+                    $param = explode(',', $param);
+                }
+                countData($data, $action, $param, null);
+            }
+            if (isset($_GET['param2']))
+            {
+                $param = $_GET['param'];
+                $param2 = $_GET['param2'];
+                $param = explode(',', $param);
+                $param2 = explode(',', $param2);
+                countData($data, $action, $param, $param2);
+
             }
         }
         else
