@@ -1,4 +1,13 @@
 <?php 
+/*
+ * Feb 23, 2016
+ *
+ * Baldwin Yu, Joseph Balatbat, Matt Grixti, Philip Young
+ * COMP-4513 Assignment 1 - Admin Dashboard About Page
+ *
+ * This page contains the information about our website
+ */
+
 $headertext = "About";
 include "includes/head.inc.php";
 ?>

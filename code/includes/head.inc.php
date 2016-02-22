@@ -1,3 +1,14 @@
+<?php
+/*
+ * Feb 23, 2016
+ *
+ * Baldwin Yu, Joseph Balatbat, Matt Grixti, Philip Young
+ * COMP-4513 Assignment 1 - Admin Dashboard Head Include Page
+ *
+ * This page is the head code to be included
+ */
+?>
+
 <!DOCTYPE html>
 <html>
    <head>

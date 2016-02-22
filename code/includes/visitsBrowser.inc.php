@@ -3,9 +3,9 @@
  * Feb 23, 2016
  *
  * Baldwin Yu, Joseph Balatbat, Matt Grixti, Philip Young
- * COMP-4513 Assignment 1 - Admin Dashboard Hme Page - PHP Version
+ * COMP-4513 Assignment 1 - Admin Dashboard Visits Browser Include Page
  *
- * This page is the back-end php code for the home page
+ * This page is the back-end php code for the visits browser page
  */
 
 /*

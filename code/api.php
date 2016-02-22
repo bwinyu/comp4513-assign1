@@ -1,9 +1,11 @@
 <?php
-/* api.php
- * Created by Joseph Balatbat
- * this php file handles all of the php requests
- * if the request is invalid - no data is returned or user will get "invalid input"
+/*
+ * Feb 23, 2016
  *
+ * Baldwin Yu, Joseph Balatbat, Matt Grixti, Philip Young
+ * COMP-4513 Assignment 1 - Admin Dashboard Web Service API
+ *
+ * This php file handles all of the php requests
  */
 
 header("Content-Type:application/json");

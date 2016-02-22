@@ -1,4 +1,13 @@
 <?php
+/*
+ * Feb 23, 2016
+ *
+ * Baldwin Yu, Joseph Balatbat, Matt Grixti, Philip Young
+ * COMP-4513 Assignment 1 - Admin Dashboard Visits Browser Page
+ *
+ * This page is the front-end code for the visits browser page
+ */
+
 require_once ("lib/helpers/visits-setup.inc.php");
 
 $headertext = "Visits Browser";
