@@ -74,6 +74,7 @@ function pullData ($userData)
 function actionData($userData, $actionType, $param, $param2)
 {
     require_once('lib/helpers/visits-setup.inc.php');
+    $BrowsersToPull = new BrowserTableGateway($dbAdapter);
     $CountriesToPull = new CountriesTableGateway($dbAdapter);
     $VisitsToPull = new VisitsTableGateway($dbAdapter);
     $dataSets = array("Browsers", "Continents", "Countries", "DeviceBrand", "DeviceType", "OperatingSystems", "Referrers", "Visits");
@@ -154,6 +155,15 @@ function actionData($userData, $actionType, $param, $param2)
                     $dataOutput = "Invalid Input";
                 echo json_encode($dataOutput);
             break;
+            case "Browsers":
+                if($actionType == "visitsbybrowser")
+                {
+                    $dataOutput = $BrowsersToPull->visitsByBrowser();
+                }
+                else
+                    $dataOutput = "Invalid Input";
+                echo json_encode($dataOutput);
+                break;
         }
     }
 }
