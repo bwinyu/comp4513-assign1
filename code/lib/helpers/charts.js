@@ -1,11 +1,14 @@
 
 <!--Loads JavaScript for Google Charts-->
+google.charts.load('current', {packages: ['corechart' , 'geochart']});
 $(function() {
-    google.charts.load('current', {packages: ['corechart' , 'geochart']});
-
-
     $("#areaChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawAreaChart);
+        drawAreaChart();
+    })
+
+    $("#geoChartBtn").click(function() {
+        google.charts.setOnLoadCallback(drawGeoChart);
         drawAreaChart();
     })
 
@@ -33,8 +36,6 @@ $(function() {
     }
 
     function drawGeoChart() {
-        google.charts.load('current', {'packages':['geochart']});
-        google.charts.setOnLoadCallback(drawRegionsMap);
 
         var data = google.visualization.arrayToDataTable([
             ['Country', 'Popularity'],
