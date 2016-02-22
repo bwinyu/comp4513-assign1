@@ -25,23 +25,23 @@ include "includes/visitsBrowser.inc.php";
                 <h2 class="mdl-card__title-text">Filter</h2>
             </div>
             <div class="mdl-card__supporting-text" id="filters">
-                    <div class="mdl-card__actions mdl-card--border">
-                        <div class="easy-autocomplete">
-                            <input id="country" placeholder="Country Search" autocomplete="off" name="Country"/>
-                        </div>
-                        <?php
-                        /*
-                         * Generate dropdown lists
-                         */
-                        echo createDropdown ($typesList, "id", "name", "DeviceType", "Device Type");
-                        echo createDropdown ($brandList, "id", "name", "DeviceBrand", "Brand Type");
-                        echo createDropdown ($browserList, "id", "name", "Browser", "Browser Name");
-                        echo createDropdown ($referrerList, "id", "name", "Referrer", "Referrer Name");
-                        echo createDropdown ($osList, "id", "name", "OS", "OS Name");
-                        ?>
-
-                    </div>
-
+                <div class="mdl-card__actions mdl-card--border">
+                    <input id="country" placeholder="Country Search" autocomplete="off" name="Country"/>
+                    <table>
+                        <tr>
+                            <?php
+                            /*
+                             * Generate dropdown lists
+                             */
+                            echo '<td>' . createDropdown ($typesList, "id", "name", "DeviceType", "Device Type") . '</td>';
+                            echo '<td>' . createDropdown ($brandList, "id", "name", "DeviceBrand", "Brand Type") . '</td>';
+                            echo '<td>' . createDropdown ($browserList, "id", "name", "Browser", "Browser Name") . '</td>';
+                            echo '<td>' . createDropdown ($referrerList, "id", "name", "Referrer", "Referrer Name") . '</td>';
+                            echo '<td>' . createDropdown ($osList, "id", "name", "OS", "OS Name") . '</td>';
+                            ?>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
