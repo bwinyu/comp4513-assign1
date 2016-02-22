@@ -3,6 +3,10 @@
 google.charts.load('current', {packages: ['corechart' , 'geochart', 'bar']});
 
 $(function() {
+
+    loadCountryDropdowns();
+
+
     $("#areaChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawAreaChart);
         drawAreaChart();
@@ -17,6 +21,20 @@ $(function() {
         google.charts.setOnLoadCallback(drawBarChart);
         drawBarChart();
     })
+
+    function loadCountryDropdowns(){
+        $(".countrySelect").append ($('<option>', {
+            text: 'Select a country',
+            value: 'Not Selected'
+        }));
+        var countryList = jsonRequest("api.php?data=countries&action=fetchcountrynamestop10visits");
+        $.each(countryList, function(key, value) {
+            $(".countrySelect").append ($('<option>', {
+                text: countryList[key].CountryName,
+                value: countryList[key].CountryName
+            }));
+        });
+    }
 
     function drawAreaChart() {
         var shortMonth = $("#areaChartMonth").val();
@@ -68,29 +86,50 @@ $(function() {
     }
 
     function drawBarChart(){
+        var countries = [];
+        countries.push($("#colChartCountrySelect1").val());
+        countries.push($("#colChartCountrySelect2").val());
+        countries.push($("#colChartCountrySelect3").val());
 
-        var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses', 'Profit'],
-            ['2014', 1000, 400, 200],
-            ['2015', 1170, 460, 250],
-            ['2016', 660, 1120, 300],
-            ['2017', 1030, 540, 350]
-        ]);
+        if($.inArray('Not Selected', countries)) {
 
-        var fullDate = new Date();
-        var currYear = fullDate.getFullYear();
+            var chartArrayData = [];
+            var countriesParam = "";
 
-        var options = {
-            chart: {
-                title: 'Site Visits',
-                subtitle: "'" + currYear + "'",
-            },
-            bars: 'vertical' // Required for Material Bar Charts.
-        };
+            for(var i = 0; i< countries.length; i++){
+                console.log(countries[i]);
+                countriesParam += countries[i] + ",";
+            }
+            countriesParam = countriesParam.slice(0, -1);
 
-        var chart = new google.charts.Bar(document.getElementById('barChart'));
+            var jsonData = jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam);
 
-        chart.draw(data, options);
+            chartArrayData.push(['Month', jsonData[0].CountryName, jsonData[1].CountryName, jsonData[2].CountryName]);
+
+            for (var i = 0; i < jsonData.length; i+=3){
+                chartArrayData.push([jsonData[i].MonthName, jsonData[i].Visits, jsonData[i+1].Visits, jsonData[i+2].Visits]);
+            }
+
+            var data = google.visualization.arrayToDataTable(chartArrayData);
+
+            var options = {
+                chart: {
+                    title: 'Site Visits',
+                    subtitle: "'" + 2016 + "'",
+                },
+                bars: 'horizontal' // Required for Material Bar Charts.
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('barChart'));
+
+            chart.draw(data, options);
+        }
+        else {
+            for(var i = 0; i< countries.length; i++){
+               console.log(countries[i]);
+            }
+            alert("Please fill in all three countries");
+        }
     }
 
     function jsonRequest (url) {
@@ -109,17 +148,6 @@ $(function() {
         })();
     }
 
-
-        // ['Day', 'Visits'],
-        //['2016-01-01',  197],
-        //['2016-01-02',  211],
-        //['2016-01-03',  194],
-        //['2016-01-04',  213]
-    function createChartsArray(headerArray, item1Array, item2Array, item3Array){
-
-
-
-    }
 
 });
 

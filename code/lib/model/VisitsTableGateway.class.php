@@ -282,7 +282,7 @@ class VisitsTableGateway extends TableDataGateway
      */
     public function visitsForBarChart($param){
 
-        $sql = 'SELECT count(id) AS Visits, countries.CountryName, MONTHNAME(visits.visit_date)
+        $sql = 'SELECT count(id) AS Visits, countries.CountryName, MONTHNAME(visits.visit_date) as MonthName
                 FROM countries JOIN visits ON countries.ISO = visits.country_code
                 WHERE DATE_FORMAT(visit_date, \'%Y\') = DATE_FORMAT(SYSDATE(), \'%Y\')
                 AND DATE_FORMAT(visit_date, \'%b\') IN (\'Jan\', \'May\', \'Sep\')
