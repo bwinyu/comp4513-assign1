@@ -23,23 +23,25 @@ $(function() {
 
         var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
 
-        for(jsonObj in jsonData){
+        var chartArrayData = [];
+        chartArrayData[0] = [];
+        chartArrayData[0, 0] = "Visits";
+        chartArrayData[0, 1] = "Date";
 
-        }
-        $.each(jsonData.data, function(index, jsonObj){
-            for(var attribute in jsonObj){
 
+        chartArrayData[1] = [];
+        chartArrayData[1, 0] = "Visits";
+        chartArrayData[1, 1] = "Date";
+
+        console.log(chartArrayData);
+        for (var i = 1; i < jsonData.length; i++){
+                console.log(jsonData[i].Visits);
+                chartArrayData[i, 0] = jsonData[i].Visits;
+                chartArrayData[i, 1] = jsonData[i].Date;
             }
-        }
 
 
-        var data = google.visualization.arrayToDataTable([
-            ['Day', 'Visits'],
-            ['2016-01-01',  197],
-            ['2016-01-02',  211],
-            ['2016-01-03',  194],
-            ['2016-01-04',  213]
-        ]);
+        var data = google.visualization.arrayToDataTable(chartArrayData);
         var currMonth = $("#areaChartMonth option:selected").text();
         var options = {
             title: currMonth + ' Visits',
