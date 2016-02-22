@@ -152,24 +152,22 @@ function countData($userData, $actionType, $param, $param2)
                 if($actionType == "filterbycontinentcode")
                 {
                     $dataOutput = $CountriesToPull->filterByContinentCode($param);
-                    echo json_encode($dataOutput);
-                    break;
                 }
                 elseif ($actionType == "countrieslike")
                 {
                     $dataOutput = $CountriesToPull->countryLike($param);
-                    echo json_encode($dataOutput);
-                    break;
                 }
                 elseif ($actionType == "visitsbycountry")
                 {
                     $dataOutput = $CountriesToPull->visitsByCountry($param);
-                    echo json_encode($dataOutput);
-                    break;
                 }
-
+                elseif ($actionType == "fetchcountrynames")
+                {
+                    $dataOutput = $CountriesToPull->fetchCountryNames();
+                }
                 else
                     echo null;
+                echo json_encode($dataOutput);
             break;
         }
     }
@@ -184,7 +182,7 @@ function countData($userData, $actionType, $param, $param2)
         if(isset($_GET['action']))
         {
             $action = $_GET['action'];
-            if(isset($_GET['param']) && !isset($_GET['param2']))
+            if((isset($_GET['param']) && !isset($_GET['param2']) || !isset($_GET['param'])))
             {
                 $param = $_GET['param'];
                 $pos = strpos($param, ',');
