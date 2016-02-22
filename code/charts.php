@@ -42,7 +42,6 @@ include "includes/charts.inc.php";
                 ?>
                 <input class="mdl-button mdl-button--raised mdl-button--accent" id="geoChartBtn" type="submit" value="Submit">
                 <div id = "geoChart">
-
                 </div>
             </div>
         </div>
@@ -52,7 +51,9 @@ include "includes/charts.inc.php";
                 <h2 class="mdl-card__title-text">Visit Data Column Chart</h2>
             </div>
             <div class="mdl-card__supporting-text">
-
+                <input class="mdl-button mdl-button--raised mdl-button--accent" id="barChartBtn" type="submit" value="Submit">
+                <div id = "barChart">
+                </div>
             </div>
         </div>
     </div>

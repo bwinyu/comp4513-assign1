@@ -1,6 +1,7 @@
 
 <!--Loads JavaScript for Google Charts-->
-google.charts.load('current', {packages: ['corechart' , 'geochart']});
+google.charts.load('current', {packages: ['corechart' , 'geochart', 'bar']});
+
 $(function() {
     $("#areaChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawAreaChart);
@@ -10,6 +11,11 @@ $(function() {
     $("#geoChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawGeoChart);
         drawAreaChart();
+    })
+
+    $("#barChartBtn").click(function() {
+        google.charts.setOnLoadCallback(drawBarChart);
+        drawBarChart();
     })
 
     function drawAreaChart() {
@@ -54,6 +60,35 @@ $(function() {
         chart.draw(data, options);
 
     }
+
+    function drawBarChart(){
+
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Sales', 'Expenses', 'Profit'],
+            ['2014', 1000, 400, 200],
+            ['2015', 1170, 460, 250],
+            ['2016', 660, 1120, 300],
+            ['2017', 1030, 540, 350]
+        ]);
+
+        var fullDate = new Date();
+        var currYear = fullDate.getFullYear();
+
+        var options = {
+            chart: {
+                title: 'Site Visits',
+                subtitle: "'" + currYear + "'",
+            },
+            bars: 'vertical' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barChart'));
+
+        chart.draw(data, options);
+    }
+
+
+
 });
 
 
