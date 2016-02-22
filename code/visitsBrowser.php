@@ -16,7 +16,7 @@ include "includes/visitsBrowser.inc.php";
             </div>
             <div class="mdl-card__supporting-text">
                 <form>
-                    <input type="text" name="Country"/>
+                    <input id="country" type="text" name="Country"/>
                     <div class="mdl-card__actions mdl-card--border">
                         <?php
                         /*

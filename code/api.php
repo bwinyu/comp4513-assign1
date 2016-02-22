@@ -1,42 +1,30 @@
 <?php
+/* api.php
+ * Created by Joseph Balatbat
+ * this php file handles all of the php requests
+ * if the request is invalid - no data is returned or user will get "invalid input"
+ *
+ */
+
 header("Content-Type:application/json");
 header("Access-Control-Allow-Origin: *");
-error_reporting(E_ALL & ~E_NOTICE); ini_set('display_errors', '1');
-
-$actionFunction = array ();
-
+//import all required files
 foreach (glob("code/lib/model/*.php") as $filename)
 {
     include $filename;
 }
-//include "code/lib/dataAccess/TableDataGateway.class.php";
-
-function createJson($array, $attributes, $userAttr)
-{
-    $dataToJSON = $array;
-    return json_encode($dataToJSON);
-}
-
-
+//used to output raw data from the table (no filters)
 function pullData ($userData)
 {
     require_once('lib/helpers/visits-setup.inc.php');
     $BrowsersToPull = new BrowserTableGateway($dbAdapter);
-    $BrowserAttributes = Browser::getFieldNames();
     $ContinentsToPull = new ContinentsTableGateway($dbAdapter);
-    $ContinentsAttributes = Continents::getFieldNames();
     $CountriesToPull = new CountriesTableGateway($dbAdapter);
-    $CountriesAttributes = Countries::getFieldNames();
     $DeviceBrandToPull = new DeviceBrandTableGateway($dbAdapter);
-    $DeviceBrandAttributes = DeviceBrand::getFieldNames();
     $DeviceTypeToPull = new DeviceTypesTableGateway($dbAdapter);
-    $DeviceTypeAttributes = DeviceTypes::getFieldNames();
     $OperatingSystemsToPull = new OperatingSystemsTableGateway($dbAdapter);
-    $OperatingSystemsAttributes = OperatingSystems::getFieldNames();
     $ReferrersToPull = new ReferrersTableGateway($dbAdapter);
-    $ReferrersAttributes = Referrers::getFieldNames();
     $VisitsToPull = new VisitsTableGateway($dbAdapter);
-    $VisitsAttributes = Visits::getFieldNames();
 
 
     $dataSets = array("Browsers", "Continents", "Countries", "Devicebrand", "Devicetype", "Operatingsystems", "Referrers", "Visits");
@@ -79,26 +67,13 @@ function pullData ($userData)
         }
     }
 }
-
-function countData($userData, $actionType, $param)
+//used to pull data with special requirements or data that uses methods with complex joins to pull data
+//  query string format = data=(country)&action(function name)&param1()&param2()
+function actionData($userData, $actionType, $param, $param2)
 {
     require_once('lib/helpers/visits-setup.inc.php');
-    $BrowsersToPull = new BrowserTableGateway($dbAdapter);
-    $BrowserAttributes = Browser::getFieldNames();
-    $ContinentsToPull = new ContinentsTableGateway($dbAdapter);
-    $ContinentsAttributes = Continents::getFieldNames();
     $CountriesToPull = new CountriesTableGateway($dbAdapter);
-    $CountriesAttributes = Countries::getFieldNames();
-    $DeviceBrandToPull = new DeviceBrandTableGateway($dbAdapter);
-    $DeviceBrandAttributes = DeviceBrand::getFieldNames();
-    $DeviceTypeToPull = new DeviceTypesTableGateway($dbAdapter);
-    $DeviceTypeAttributes = DeviceTypes::getFieldNames();
-    $OperatingSystemsToPull = new OperatingSystemsTableGateway($dbAdapter);
-    $OperatingSystemsAttributes = OperatingSystems::getFieldNames();
-    $ReferrersToPull = new ReferrersTableGateway($dbAdapter);
-    $ReferrersAttributes = Referrers::getFieldNames();
     $VisitsToPull = new VisitsTableGateway($dbAdapter);
-    $VisitsAttributes = Visits::getFieldNames();
     $dataSets = array("Browsers", "Continents", "Countries", "DeviceBrand", "DeviceType", "OperatingSystems", "Referrers", "Visits");
 
     if (in_array($userData, $dataSets))
@@ -136,29 +111,38 @@ function countData($userData, $actionType, $param)
 				{
 					$dataOutput = $VisitsToPull->countByOS($param);
 				}
+                elseif ($actionType == "filtervisitsdata")
+                {
+                    $dataOutput = $VisitsToPull->filterVisitsData($param, $param2);
+                }
+                elseif ($actionType == "visitsforbarchart")
+                {
+                    $dataOutput = $VisitsToPull->visitsForBarChart($param);
+                }
                 else
-                    echo null;
+                    $dataOutput = null;
                 echo json_encode($dataOutput);
                 break;
             case "Countries":
                 if($actionType == "filterbycontinentcode")
                 {
                     $dataOutput = $CountriesToPull->filterByContinentCode($param);
-                    echo json_encode($dataOutput);
-                    break;
                 }
                 elseif ($actionType == "countrieslike")
                 {
                     $dataOutput = $CountriesToPull->countryLike($param);
-                    echo json_encode($dataOutput);
-                    break;
                 }
-                else if ($actionType == "visitsbycountry")
+                elseif ($actionType == "visitsbycountry")
                 {
-                    
+                    $dataOutput = $CountriesToPull->visitsByCountry($param);
+                }
+                elseif ($actionType == "fetchcountrynames")
+                {
+                    $dataOutput = $CountriesToPull->fetchCountryNames();
                 }
                 else
-                    echo null;
+                    $dataOutput = "Invalid Input";
+                echo json_encode($dataOutput);
             break;
         }
     }
@@ -166,6 +150,7 @@ function countData($userData, $actionType, $param)
 ?>
 
 <?php
+//used to check the query string for data
     if(isset($_GET['data']))
     {
         $data = $_GET['data'];
@@ -173,18 +158,32 @@ function countData($userData, $actionType, $param)
         if(isset($_GET['action']))
         {
             $action = $_GET['action'];
-            if(isset($_GET['param']))
+            if (!isset($_GET['param']))
             {
-
+                actionData($data, $action, null, null);
+            }
+            elseif((isset($_GET['param']) && !isset($_GET['param2'])))
+            {
                 $param = $_GET['param'];
-                countData($data, $action, $param);
+                $pos = strpos($param, ',');
+                if ($pos !== false)
+                {
+                    $param = explode(',', $param);
+                }
+                actionData($data, $action, $param, null);
+            }
+
+            if (isset($_GET['param2']))
+            {
+                $param = $_GET['param'];
+                $param2 = $_GET['param2'];
+                $param = explode(',', $param);
+                $param2 = explode(',', $param2);
+                actionData($data, $action, $param, $param2);
             }
         }
         else
-        {
             pullData($data);
-        }
-
     }
 
 
