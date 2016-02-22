@@ -26,6 +26,19 @@ class BrowserTableGateway extends TableDataGateway
       return "id";
    }
 
+   public function visitsByBrowser()
+   {
+
+      $sql = 'SELECT browsers.ID, browsers.name, Count(visits.ID) AS Visits FROM browsers INNER JOIN visits
+                ON browsers.ID = visits.browser_id
+                GROUP BY browsers.name';
+
+      $results = $this->dbAdapter->fetchAsArray($sql);
+      if (is_null($results))
+         return $results;
+      else
+         return $this->convertRecordsToObjects($results);
+   }
 
 }
 

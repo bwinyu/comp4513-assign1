@@ -161,11 +161,11 @@ foreach ($result as $row) {
 
 $gate = new CountriesTableGateway($dbAdapter);
 echo '<h3>Test countryLike</h3>';
-$gate = new CountriesTableGateway($dbAdapter);
-$result = $gate->visitsByCountryFromContinent('NA');
+$gate = new BrowserTableGateway($dbAdapter);
+$result = $gate->visitsByCountryFromContinent();
 foreach ($result as $row) {
 
-    echo $row->CountryName. $row->Visits . "<br/>";
+    echo $row->Name. $row->Visits . "<br/>";
 }
 
 // all done close connection
