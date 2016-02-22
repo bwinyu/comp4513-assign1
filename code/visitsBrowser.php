@@ -5,7 +5,8 @@ $headertext = "Visits Browser";
 include "includes/head.inc.php";
 include "includes/visitsBrowser.inc.php";
 ?>
-
+<script src="js/visitsBrowser.js"></script>
+<script src="js/jquery.easy-autocomplete.min.js"></script>
 <div class="page-content mdl-grid">
 
     <div class="mdl-cell mdl-cell--12-col">
@@ -15,22 +16,24 @@ include "includes/visitsBrowser.inc.php";
                 <h2 class="mdl-card__title-text">Filter</h2>
             </div>
             <div class="mdl-card__supporting-text">
-                <form>
-                    <input id="country" type="text" name="Country"/>
+                <form id="filters">
+                    <div class="easy-autocomplete">
+                        <input id="country" placeholder="Country Search" autocomplete="off" name="Country"/>
+                    </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <?php
                         /*
-                         * Generate dropdown list for Device Type
+                         * Generate dropdown lists
                          */
                         echo createDropdown ($typesList, "id", "name", "type", "Device Type");
-                        echo createDropdown ($brandList, "id", "name", "type", "Brand Type");
-                        echo createDropdown ($browserList, "id", "name", "type", "Browser Name");
-                        echo createDropdown ($referrerList, "id", "name", "type", "Referrer Name");
-                        echo createDropdown ($osList, "id", "name", "type", "OS Name");
+                        echo createDropdown ($brandList, "id", "name", "brand", "Brand Type");
+                        echo createDropdown ($browserList, "id", "name", "browser", "Browser Name");
+                        echo createDropdown ($referrerList, "id", "name", "referrer", "Referrer Name");
+                        echo createDropdown ($osList, "id", "name", "os", "OS Name");
                         ?>
 
                     </div>
-                    <input class="mdl-button mdl-button--raised mdl-button--accent" type="submit" value="Submit">
+                    <button id="filterbtn" class="mdl-button mdl-button--raised mdl-button--accent">
                 </form>
 
             </div>
