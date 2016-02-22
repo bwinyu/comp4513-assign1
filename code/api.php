@@ -158,11 +158,17 @@ function actionData($userData, $actionType, $param, $param2)
         if(isset($_GET['action']))
         {
             $action = $_GET['action'];
-            if (!isset($_GET['param']))
+            if (!isset($_GET['param']) || $_GET['param'] == "")
             {
-                actionData($data, $action, null, null);
+                if (isset($_GET['param2']))
+                {
+                    echo json_encode("Invalid Parameter values");
+                }
+                else{
+                    actionData($data, $action, null, null);
+                }
             }
-            elseif((isset($_GET['param']) && !isset($_GET['param2'])))
+            elseif((isset($_GET['param']) && (!isset($_GET['param2'])) ))
             {
                 $param = $_GET['param'];
                 $pos = strpos($param, ',');
@@ -173,7 +179,7 @@ function actionData($userData, $actionType, $param, $param2)
                 actionData($data, $action, $param, null);
             }
 
-            if (isset($_GET['param2']))
+            else if (isset($_GET['param2']))
             {
                 $param = $_GET['param'];
                 $param2 = $_GET['param2'];
