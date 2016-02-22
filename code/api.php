@@ -12,30 +12,7 @@ foreach (glob("code/lib/model/*.php") as $filename)
 
 function createJson($array, $attributes, $userAttr)
 {
-    $dataToJSON = array();
-
-    if (is_null($userAttr) || $userAttr == "") {
-        foreach ($attributes as $key) {
-            foreach ($array as $row) {
-                $dataToJSON[$key][] = (string)$row->$key;
-                print_r($row->fieldValues);
-            }
-        }
-    }
-    else
-    {
-        if (in_array($userAttr, $attributes))
-        {
-            foreach($array as $row)
-            {
-                $dataToJSON[$userAttr][] = (string)$row->$userAttr;
-            }
-        }
-        else
-        {
-            $dataToJSON = null;
-        }
-    }
+    $dataToJSON = $array;
     return json_encode($dataToJSON);
 }
 
@@ -61,42 +38,42 @@ function pullData ($userData, $userAttr)
     $VisitsAttributes = Visits::getFieldNames();
 
 
-    $dataSets = array("Browsers", "Continents", "Countries", "DeviceBrand", "DeviceType", "OperatingSystems", "Referrers", "Visits");
+    $dataSets = array("Browsers", "Continents", "Countries", "Devicebrand", "Devicetype", "Operatingsystems", "Referrers", "Visits");
     if ( in_array($userData, $dataSets) )
     {
         switch($userData)
         {
             case "Browsers":
                 $array = $BrowsersToPull->findAll();
-                echo createJson($array, $BrowserAttributes, $userAttr);
+                echo json_encode($array);
                 break;
             case "Continents":
                 $array = $ContinentsToPull->findAll();
-                echo createJson($array, $ContinentsAttributes, $userAttr);
+                echo json_encode($array);
                 break;
             case "Countries":
                 $array =$CountriesToPull->findAll();
-                echo createJson($array, $CountriesAttributes, $userAttr);
+                echo json_encode($array);
                 break;
-            case "DeviceBrand":
+            case "Devicebrand":
                 $array = $DeviceBrandToPull->findAll();
-                echo createJson($array, $DeviceBrandAttributes, $userAttr);
+                echo json_encode($array);
                 break;
-            case "DeviceType":
+            case "Devicetype":
                 $array = $DeviceTypeToPull->findAll();
-                echo createJson($array, $DeviceTypeAttributes, $userAttr);
+                echo json_encode($array);
                 break;
-            case "OperatingSystems":
+            case "Operatingsystems":
                 $array = $OperatingSystemsToPull->findAll();
-                echo createJson($array, $OperatingSystemsAttributes, $userAttr);
+                echo json_encode($array);
                 break;
             case "Referrers":
                 $array = $ReferrersToPull->findAll();
-                echo createJson($array, $ReferrersAttributes, $userAttr);
+                echo json_encode($array);
                 break;
             case "Visits":
                 $array = $VisitsToPull->findAll();
-                echo createJson($array, $VisitsAttributes, $userAttr);
+                echo json_encode($array);
                 break;
         }
     }
@@ -166,9 +143,11 @@ function countData($userData, $actionType, $param)
             case "Countries":
                 if($actionType == "filterbycontinentcode")
                 {
-                    echo "hello";
                     $dataOutput = $CountriesToPull->filterByContinentCode($param);
+                    echo json_encode($dataOutput);
+
                 }
+
             break;
 
         }
@@ -202,7 +181,6 @@ function countData($userData, $actionType, $param)
             {
                 $attr = $_GET['attr'];
             }
-            echo $data;
             pullData($data, $attr);
         }
 
