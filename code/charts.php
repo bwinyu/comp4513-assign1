@@ -15,7 +15,6 @@ include "includes/charts.inc.php";
                     <h2 class="mdl-card__title-text">Visits Per Month</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-
                     Select a month to view visits:
                         <?php
                             echo createMonthDropdown("areaChartMonth");
@@ -23,11 +22,7 @@ include "includes/charts.inc.php";
                     <input class="mdl-button mdl-button--raised mdl-button--accent" id="areaChartBtn" type="submit" value="Submit">
                     <div id = "areaChart">
                     </div>
-
-
-
                 </div>
-
             </div>
 <!--        </form>-->
 
