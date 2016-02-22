@@ -49,12 +49,16 @@ class CountriesTableGateway extends TableDataGateway
      *
      * @return array - array of objects for each record returned
      */
-    public function visitsByCountry()
+    public function visitsByCountry($month)
     {
 
-        $sql = "SELECT ISO, countries.CountryName, Count(visits.ID) AS Visits FROM countries INNER JOIN visits ON countries.ISO = visits.country_code GROUP BY countries.CountryName HAVING Count(visits.ID) > 10";
+        $sql = 'SELECT ISO, countries.CountryName, Count(visits.ID) AS Visits FROM countries INNER JOIN visits
+                ON countries.ISO = visits.country_code
+                WHERE DATE_FORMAT(visits.visit_date, \'%b\') = ?
+                GROUP BY countries.CountryName
+                HAVING Count(visits.ID) > 10';
 
-        $results = $this->dbAdapter->fetchAsArray($sql);
+        $results = $this->dbAdapter->fetchAsArray($sql, $month);
         if (is_null($results))
             return $results;
         else
