@@ -146,6 +146,10 @@ function actionData($userData, $actionType, $param, $param2)
                 {
                     $dataOutput = $CountriesToPull->fetchCountryNamesTop10Visits();
                 }
+                elseif ($actionType == "visitsbycountryfromcontinent")
+                {
+                    $dataOutput = $CountriesToPull->visitsByCountryFromContinent($param);
+                }
                 else
                     $dataOutput = "Invalid Input";
                 echo json_encode($dataOutput);
