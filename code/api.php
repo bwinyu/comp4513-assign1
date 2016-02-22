@@ -38,7 +38,7 @@ function pullData ($userData, $userAttr)
     $VisitsAttributes = Visits::getFieldNames();
 
 
-    $dataSets = array("Browsers", "Continents", "Countries", "DeviceBrand", "DeviceType", "OperatingSystems", "Referrers", "Visits");
+    $dataSets = array("Browsers", "Continents", "Countries", "Devicebrand", "Devicetype", "Operatingsystems", "Referrers", "Visits");
     if ( in_array($userData, $dataSets) )
     {
         switch($userData)
