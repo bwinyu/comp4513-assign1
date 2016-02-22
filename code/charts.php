@@ -1,40 +1,44 @@
 <?php 
 $headertext = "Charts";
 include "includes/head.inc.php";
-include "lib/helpers/charts-config.php";
+include "includes/charts.inc.php";
 ?>
-
-
-<!-- content here -->
-
-<form action="charts.php" method="get">
+<!-- Load JS for Google Charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="lib/helpers/charts.js"></script>
 
     <div class="page-content mdl-grid">
-        <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__title mdl-color--teal-500">
-                <h2 class="mdl-card__title-text">Visits Per Month</h2>
+<!--        <form name="areaChart" onsubmit="drawAreaChart()" method="get">-->
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__title mdl-color--teal-500">
+                    <h2 class="mdl-card__title-text">Visits Per Month</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+
+                    Select a month to view visits:
+                        <?php
+                            echo createMonthDropdown("areaChartMonth");
+                        ?>
+                    <input class="mdl-button mdl-button--raised mdl-button--accent" id="areaChartBtn" type="submit" value="Submit">
+                    <div id = "areaChart">
+                    </div>
+
+
+
+                </div>
+
             </div>
-            <div class="mdl-card__supporting-text">
-
-
-                Select a month to chart visits:
-                <select name="month">
-                    <option value="Jan">January</option>
-                    <option value="Feb">February</option>
-                    <option value="Mar">March</option>
-                    <option value="Apr">April</option>
-                </select>
-
-            </div>
-
-        </div>
+<!--        </form>-->
 
         <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             <div class="mdl-card__title mdl-color--teal-500">
                 <h2 class="mdl-card__title-text">Geo Chart</h2>
             </div>
             <div class="mdl-card__supporting-text">
+                <div id = "geoChart">
 
+                </div>
             </div>
         </div>
 
@@ -47,6 +51,6 @@ include "lib/helpers/charts-config.php";
             </div>
         </div>
     </div>
-</form>
+
 
 <?php include "includes/footer.inc.php" ?>
