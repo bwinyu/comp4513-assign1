@@ -274,6 +274,29 @@ class VisitsTableGateway extends TableDataGateway
             return $this->convertRecordsToObjects($results);
     }
 
+    /**
+     * Counts the visits for 3 countries in the months of Jan, May , and Sept
+     *
+     * @param $param Array of months
+     * @return array - array of objects for records
+     */
+    public function visitsForBarChart($param){
+
+        $sql = 'SELECT count(id) AS Visits, countries.CountryName, MONTHNAME(visits.visit_date)
+                FROM countries JOIN visits ON countries.ISO = visits.country_code
+                WHERE DATE_FORMAT(visit_date, \'%Y\') = DATE_FORMAT(SYSDATE(), \'%Y\')
+                AND DATE_FORMAT(visit_date, \'%b\') IN (\'Jan\', \'May\', \'Sep\')
+                AND countries.CountryName IN (?, ?, ?)
+                GROUP BY MONTHNAME(visits.visit_date), countries.CountryName
+                ORDER BY MONTHNAME(visits.visit_date)';
+
+        $results = $this->dbAdapter->fetchAsArray($sql, $param);
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
 
 }
 
