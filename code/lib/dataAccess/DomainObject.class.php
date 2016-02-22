@@ -32,7 +32,7 @@ abstract class DomainObject implements JsonSerializable
       
       // given an array of field name+values for a single row, assign them as properties      
       foreach ($data as $name => $value) {    
-         $this->$name = $value;
+         $this->$name = utf8_encode($value);
       }
    }
    

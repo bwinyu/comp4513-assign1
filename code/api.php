@@ -1,6 +1,7 @@
 <?php
 header("Content-Type:application/json");
 header("Access-Control-Allow-Origin: *");
+error_reporting(E_ALL & ~E_NOTICE); ini_set('display_errors', '1');
 
 $actionFunction = array ();
 
@@ -17,7 +18,7 @@ function createJson($array, $attributes, $userAttr)
 }
 
 
-function pullData ($userData, $userAttr)
+function pullData ($userData)
 {
     require_once('lib/helpers/visits-setup.inc.php');
     $BrowsersToPull = new BrowserTableGateway($dbAdapter);
@@ -109,7 +110,6 @@ function countData($userData, $actionType, $param)
                     $dataOutput = $VisitsToPull->countByMonth($param);
                 elseif ($actionType == "countmonthbyday") {
                     $dataOutput = $VisitsToPull->visitsByDayForMonth($param);
-                    $dataOutput = createJson($dataOutput, array("Visits","Date"), null);
                 }
 				elseif($actionType == "countbycountrycode")
 				{
@@ -145,7 +145,10 @@ function countData($userData, $actionType, $param)
                 {
                     $dataOutput = $CountriesToPull->filterByContinentCode($param);
                     echo json_encode($dataOutput);
-
+                }
+                elseif ($actionType == "")
+                {
+//                    $dataOutput = $CountriesToPull->visitsByCountry();
                 }
 
             break;
@@ -173,15 +176,7 @@ function countData($userData, $actionType, $param)
         }
         else
         {
-            if (!isset($_GET['attr']))
-            {
-                $attr = null;
-            }
-            else
-            {
-                $attr = $_GET['attr'];
-            }
-            pullData($data, $attr);
+            pullData($data);
         }
 
     }
