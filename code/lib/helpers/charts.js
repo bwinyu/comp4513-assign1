@@ -23,23 +23,19 @@ $(function() {
 
         var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
 
-        for(jsonObj in jsonData){
+        var chartArrayData = [];
+        chartArrayData.push(['Date', 'Visits']);
 
-        }
-        $.each(jsonData.data, function(index, jsonObj){
-            for(var attribute in jsonObj){
+        for (var i = 1; i < jsonData.length; i++){
+            console.log (parseInt(jsonData[i].Visits));
+            var dateStr = jsonData[i].Date.split("-");
 
+            var day = parseInt(dateStr[2]);
+                chartArrayData.push([day, parseInt(jsonData[i].Visits)]);
             }
-        }
 
 
-        var data = google.visualization.arrayToDataTable([
-            ['Day', 'Visits'],
-            ['2016-01-01',  197],
-            ['2016-01-02',  211],
-            ['2016-01-03',  194],
-            ['2016-01-04',  213]
-        ]);
+        var data = google.visualization.arrayToDataTable(chartArrayData);
         var currMonth = $("#areaChartMonth option:selected").text();
         var options = {
             title: currMonth + ' Visits',
@@ -52,6 +48,20 @@ $(function() {
     }
 
     function drawGeoChart() {
+        var shortMonth = $("#areaChartMonth").val();
+
+        var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
+
+        var chartArrayData = [];
+        chartArrayData.push(['Date', 'Visits']);
+
+        for (var i = 1; i < jsonData.length; i++){
+            console.log (parseInt(jsonData[i].Visits));
+            var dateStr = jsonData[i].Date.split("-");
+
+            var day = parseInt(dateStr[2]);
+            chartArrayData.push([day, parseInt(jsonData[i].Visits)]);
+        }
 
         var data = google.visualization.arrayToDataTable([
             ['Country', 'Popularity'],
