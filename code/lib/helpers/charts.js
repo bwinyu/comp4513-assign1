@@ -19,10 +19,20 @@ $(function() {
     })
 
     function drawAreaChart() {
-        //$.get( "code/api.php", function( data ) {
-        //    $( ".result" ).html( data );
-        //    alert( "Load was performed." );
-        //});
+        var shortMonth = $("#areaChartMonth").val();
+
+        var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
+
+        for(jsonObj in jsonData){
+
+        }
+        $.each(jsonData.data, function(index, jsonObj){
+            for(var attribute in jsonObj){
+
+            }
+        }
+
+
         var data = google.visualization.arrayToDataTable([
             ['Day', 'Visits'],
             ['2016-01-01',  197],
@@ -87,7 +97,33 @@ $(function() {
         chart.draw(data, options);
     }
 
+    function jsonRequest (url) {
+        return (function () {
+            var result = null;
+            $.ajax({
+                'async': false,
+                'global': false,
+                'url': url,
+                'dataType': "json",
+                'success': function (data) {
+                    result = data;
+                }
+            });
+            return result;
+        })();
+    }
 
+
+        // ['Day', 'Visits'],
+        //['2016-01-01',  197],
+        //['2016-01-02',  211],
+        //['2016-01-03',  194],
+        //['2016-01-04',  213]
+    function createChartsArray(headerArray, item1Array, item2Array, item3Array){
+
+
+
+    }
 
 });
 
