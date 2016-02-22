@@ -100,4 +100,26 @@ class CountriesTableGateway extends TableDataGateway
             return $this->convertRecordsToObjects($results);
     }
 
+    /**
+     * Returns country and visits
+     *
+     * @param $continentISO  coninent codei.e. EU
+     * @return array - records returned
+     */
+    public function visitsByCountryFromContinent($continentISO)
+    {
+
+        $sql = 'SELECT ISO, countries.CountryName, Count(visits.ID) AS Visits FROM countries INNER JOIN visits
+                ON countries.ISO = visits.country_code
+                WHERE continent = ?
+                GROUP BY countries.CountryName
+                HAVING Count(visits.ID) > 10';
+
+        $results = $this->dbAdapter->fetchAsArray($sql, $continentISO);
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
 }?>
