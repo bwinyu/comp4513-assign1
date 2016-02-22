@@ -76,4 +76,14 @@ class CountriesTableGateway extends TableDataGateway
             return $this->convertRecordsToObjects($results);
     }
 
+    public function fetchCountryNames(){
+        $sql = 'SELECT CountryName FROM countries';
+
+        $results = $this->dbAdapter->fetchAsArray($sql);
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
 }?>
