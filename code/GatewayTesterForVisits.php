@@ -162,10 +162,10 @@ foreach ($result as $row) {
 $gate = new CountriesTableGateway($dbAdapter);
 echo '<h3>Test countryLike</h3>';
 $gate = new CountriesTableGateway($dbAdapter);
-$result = $gate->fetchCountryNames();
+$result = $gate->visitsByCountryFromContinent('NA');
 foreach ($result as $row) {
 
-    echo $row->CountryName. "<br/>";
+    echo $row->CountryName. $row->Visits . "<br/>";
 }
 
 // all done close connection

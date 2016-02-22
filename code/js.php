@@ -23,8 +23,8 @@ include "includes/head.inc.php";
             <h2 class="mdl-card__title-text">Browser Visits</h2>
          </div>
          <div class="mdl-card__supporting-text" id="browserVisits">
-
          </div>
+         <div id="loadingBrand"><img src="images/loading.gif"></div>
       </div>
 
       <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
@@ -32,12 +32,14 @@ include "includes/head.inc.php";
             <h2 class="mdl-card__title-text">Brand Visits</h2>
          </div>
          <div class="mdl-card__actions mdl-card--border" id="brandDropdown">
-            
+            <div class="mdl-card__actions mdl-card--border" id="brandDropdown">
+               <select id="brandSelect" name="Brand"></select>
+            </div>
          </div>
          <div class="mdl-card__supporting-text" id="brandVisits">
          </div>
 
-            <center><div id="loadingBrand"><img src="images/loading.gif"></div></center>
+<!--            <center><div id="loadingBrand"><img src="images/loading.gif"></div></center>-->
       </div>
 
    </div>
@@ -49,10 +51,10 @@ include "includes/head.inc.php";
             <h2 class="mdl-card__title-text">Country Visits</h2>
          </div>
          <div class="mdl-card__actions mdl-card--border" id="continentDropdown">
-
+            <select id="continentSelect" name="Continent"></select>
          </div>
          <div class="mdl-card__supporting-text" id="countryVisits">
-            <center><div id="loadingCountry"><img src="images/loading.gif"></div></center>
+<!--            <center><div id="loadingCountry"><img src="images/loading.gif"></div></center>-->
          </div>
       </div>
 
