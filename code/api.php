@@ -153,6 +153,12 @@ function countData($userData, $actionType, $param)
                     echo json_encode($dataOutput);
                     break;
                 }
+                else if ($actionType == "visitsbycountry")
+                {
+                    
+                }
+                else
+                    echo null;
             break;
         }
     }
