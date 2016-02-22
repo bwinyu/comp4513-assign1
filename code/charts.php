@@ -49,8 +49,10 @@ include "includes/charts.inc.php";
                 <select id = "colChartCountrySelect1" class="countrySelect"></select>
                 <select id = "colChartCountrySelect2" class="countrySelect"></select>
                 <select id = "colChartCountrySelect3" class="countrySelect"></select>
-                <input class="mdl-button mdl-button--raised mdl-button--accent" id="barChartBtn" type="submit" value="Chart It">
-                <div id = "barChart">
+                <input class="mdl-button mdl-button--raised mdl-button--accent" id="colChartBtn" type="submit" value="Chart It">
+
+                <input class="mdl-button mdl-button--raised mdl-button--accent" id="switchBarChartAxisBtn" type="submit" value="Switch">
+                <div id = "colChart"  style="width: 900px; height: 500px;">
                 </div>
             </div>
         </div>

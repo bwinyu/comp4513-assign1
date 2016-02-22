@@ -6,7 +6,6 @@ $(function() {
 
     loadCountryDropdowns();
 
-
     $("#areaChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawAreaChart);
         drawAreaChart();
@@ -17,9 +16,9 @@ $(function() {
         drawAreaChart();
     })
 
-    $("#barChartBtn").click(function() {
-        google.charts.setOnLoadCallback(drawBarChart);
-        drawBarChart();
+    $("#colChartBtn").click(function() {
+        google.charts.setOnLoadCallback(drawColChart);
+        drawColChart();
     })
 
     function loadCountryDropdowns(){
@@ -85,13 +84,13 @@ $(function() {
         chart.draw(data, options);
     }
 
-    function drawBarChart(){
+    function drawColChart(){
         var countries = [];
         countries.push($("#colChartCountrySelect1").val());
         countries.push($("#colChartCountrySelect2").val());
         countries.push($("#colChartCountrySelect3").val());
 
-        if($.inArray('Not Selected', countries)) {
+        if($.inArray('Not Selected', countries) && !countriesEqual(countries)) {
 
             var chartArrayData = [];
             var countriesParam = "";
@@ -112,24 +111,41 @@ $(function() {
 
             var data = google.visualization.arrayToDataTable(chartArrayData);
 
+            var currYear = new Date().getFullYear();
+
             var options = {
                 chart: {
                     title: 'Site Visits',
-                    subtitle: "'" + 2016 + "'",
+                    subtitle: currYear,
+                    reverseData: true
                 },
-                bars: 'horizontal' // Required for Material Bar Charts.
             };
 
-            var chart = new google.charts.Bar(document.getElementById('barChart'));
+            var chart = new google.charts.Bar(document.getElementById('colChart'));
 
             chart.draw(data, options);
         }
         else {
-            for(var i = 0; i< countries.length; i++){
-               console.log(countries[i]);
+            if(countriesEqual(countries)){
+                alert("You cannot have two of the same countries selected!");
             }
-            alert("Please fill in all three countries");
+            else
+            {
+                alert("Please fill in all three countries");
+            }
         }
+    }
+
+    function countriesEqual(countries){
+        var equal = false;
+        for(var i = 0; i<countries.length; i++){
+            if((i+1)<= countries.length){
+                if(countries[i] == countries[i+1]){
+                    equal=true;
+                }
+            }
+        }
+        return equal;
     }
 
     function jsonRequest (url) {
