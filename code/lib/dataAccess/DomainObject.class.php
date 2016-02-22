@@ -10,14 +10,21 @@
                  http://www.devshed.com/c/a/PHP/PHP-Services-Layers-Data-Mappers
                  https://github.com/codeinthehole/domain-model-mapper
  */
-abstract class DomainObject 
-{  
+abstract class DomainObject implements JsonSerializable
+{
    protected $fieldValues = array(); 
    protected $generateException = true;
 
    /**
      * Class constructor
    */
+
+   public function jsonSerialize()
+   {
+      // TODO: Implement jsonSerialize() method.
+      return $this->fieldValues;
+   }
+
    public function __construct(array $data, $generateExc)
    {
       // should we generate exception if there is reference to unknown field
@@ -25,7 +32,7 @@ abstract class DomainObject
       
       // given an array of field name+values for a single row, assign them as properties      
       foreach ($data as $name => $value) {    
-         $this->$name = $value;
+         $this->$name = utf8_encode($value);
       }
    }
    
