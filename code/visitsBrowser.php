@@ -24,6 +24,8 @@ include "includes/visitsBrowser.inc.php";
             <div class="mdl-card__title mdl-color--teal-500">
                 <h2 class="mdl-card__title-text">Filter</h2>
             </div>
+
+
             <div class="mdl-card__supporting-text" id="filters">
                 <div class="mdl-card__actions mdl-card--border">
                     <input id="country" placeholder="Country Search" autocomplete="off" name="Country"/>
@@ -50,8 +52,12 @@ include "includes/visitsBrowser.inc.php";
             <div class="mdl-card__title mdl-color--teal-500">
                 <h2 class="mdl-card__title-text">Visits</h2>
             </div>
-            <div class="mdl-card__actions mdl-card--border" id="visits">
 
+            <div class="mdl-card__actions mdl-card--border">
+                <div class="mdl-grid" id="loadingBar">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
+                <div class="mdl-grid" id="visits"><!--Table generated will appear here--></div>
             </div>
         </div>
     </div>

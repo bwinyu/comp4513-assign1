@@ -59,23 +59,8 @@ $(function(){
         /*
          * Fetch all visit information based on filters
          */
-        var visitResults = jsonRequest (url);
-        for (var result in visitResults) {
-            visitResults[visitResults[result].id] = visitResults[result];
-        }
-        var visitHeaders = ["Visit Date", "Visit Time", "IP Address", "Country", ""];
-        $("#visits").html (createTable (visitHeaders, visitResults));
+       jsonRequest (url);
 
-        /*
-         * When a button is clicked for a result, show the modal with info using the visit id
-         */
-        $(".rowButton").on ("click", function () {
-            $("#visitModal").css ("display", "block");
-            $("#visitContent").html (createDialog (visitResults[this.id]));
-            $("#visitClose").on ("click", function () {
-                $("#visitModal").css ("display", "none");
-            });
-        });
     })
 
 
@@ -132,17 +117,42 @@ function createTable (headers, tableData) {
  * Function that returns the data in a JSON request
  */
 function jsonRequest (url) {
-    return (function () {
+
         var result = null;
         $.ajax({
-            'async': false,
-            'global': false,
+            'async': true,
             'url': url,
             'dataType': "json",
+            'ifModified': true,
+            'beforeSend': function(){
+                $('#loadingBar').show();
+                $('#visits').hide();
+            },
             'success': function (data) {
-                result = data;
+                processResults(data);
+                $('#visits').show();
             }
+        }).done(function () {
+            $('#loadingBar').hide();
         });
-        return result;
-    })();
+
+    }
+
+function processResults(visitResults){
+    for (var result in visitResults) {
+        visitResults[visitResults[result].id] = visitResults[result];
+    }
+    var visitHeaders = ["Visit Date", "Visit Time", "IP Address", "Country", ""];
+    $("#visits").html (createTable (visitHeaders, visitResults));
+
+    /*
+     * When a button is clicked for a result, show the modal with info using the visit id
+     */
+    $(".rowButton").on ("click", function () {
+        $("#visitModal").css ("display", "block");
+        $("#visitContent").html (createDialog (visitResults[this.id]));
+        $("#visitClose").on ("click", function () {
+            $("#visitModal").css ("display", "none");
+        });
+    });
 }

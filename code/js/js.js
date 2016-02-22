@@ -87,7 +87,7 @@ function jsonRequest (url) {
 	return (function () {
 		var result = null;
 		$.ajax({
-			'async': false,
+			'async': true,
 	        'global': false,
 	        'url': url,
 	        'dataType': "json",
