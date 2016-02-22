@@ -6,10 +6,11 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.css">
       <link rel="stylesheet" href="css/styles.css">
+      <link re;="stylesheet" href="css/easy-autocomplete.min.css">
+      <link re;="stylesheet" href="css/easy-autocomplete.themes.min.css">
       <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-      <script src="js/visitsBrowser.js"></script>
-      <script src="js/jquery.easy-autocomplete.min.js"></script>
+
    </head>
 
    <body>
