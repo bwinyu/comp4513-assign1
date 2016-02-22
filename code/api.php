@@ -55,15 +55,15 @@ function pullData ($userData, $userAttr)
                 $array =$CountriesToPull->findAll();
                 echo json_encode($array);
                 break;
-            case "DeviceBrand":
+            case "Devicebrand":
                 $array = $DeviceBrandToPull->findAll();
                 echo json_encode($array);
                 break;
-            case "DeviceType":
+            case "Devicetype":
                 $array = $DeviceTypeToPull->findAll();
                 echo json_encode($array);
                 break;
-            case "OperatingSystems":
+            case "Operatingsystems":
                 $array = $OperatingSystemsToPull->findAll();
                 echo json_encode($array);
                 break;
