@@ -16,17 +16,17 @@ $(document).ready (function () {
 	$("#loadingBrand").hide ();
 	$("#loadingCountry").hide ();
 
-	jsonRequest ("api.php?data=Devicebrand", '#deviceLoading', 'BrandDropdown');
+	jsonRequest ("api.php?data=Devicebrand", '#loadingBrand', 'BrandDropdown');
 
 	/*
 	 * Retrieves all country information to be used for country visits dropdown
 	 */
-	jsonRequest ("api.php?data=Continents", '#countryLoading', 'CountryDropdown');
+	jsonRequest ("api.php?data=Continents", '#loadingCountry', 'CountryDropdown');
 
 	/*
 	 * Retrieves all visit information to be used for browser visits table
 	 */
-	jsonRequest("api.php?data=Browsers", "#browserLoading", "Browser");
+	jsonRequest("api.php?data=Browsers", "#loadingBrowsers", "Browser");
 
 
 	/********** ON CHANGE **********/
@@ -34,14 +34,14 @@ $(document).ready (function () {
 	 * Creates brand visits table when select is changed for brand dropdown
 	 */
 	$("#brandSelect").on ("change", function () {
-		jsonRequest ("api.php?data=Visits&action=countbydevicebrand&param=" + this.value, "#brandLoading", 'Brand');
+		jsonRequest ("api.php?data=Visits&action=countbydevicebrand&param=" + this.value, "#loadingBrand", 'Brand');
 	});
 
 	/*
 	 * Creates country visits table when select is changed for continent dropdown
 	 */
 	$("#continentSelect").on ("change", function () {
-		jsonRequest ("api.php?data=countries&action=visitsbycountryfromcontinent&param=" + this.value,"#countryLoading", 'Country');
+		jsonRequest ("api.php?data=countries&action=visitsbycountryfromcontinent&param=" + this.value,"#loadingCountry", 'Country');
 	});
 });
 
@@ -58,6 +58,9 @@ function jsonRequest (url, loadingId, requestType) {
 	        'global': false,
 	        'url': url,
 	        'dataType': "json",
+			'beforeSend': function(){
+				$(loadingId).show();
+			},
 	        'success': function (data) {
 
 				if(requestType=='Brand'){

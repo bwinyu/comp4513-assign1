@@ -36,7 +36,7 @@
     cursor: pointer;
 }
 
-#loadingBar{
+.loading{
     text-align: center;
     display: none;
 }

@@ -54,7 +54,7 @@ include "includes/visitsBrowser.inc.php";
             </div>
 
             <div class="mdl-card__actions mdl-card--border">
-                <div class="mdl-grid" id="loadingBar">
+                <div class="mdl-grid loading" id="loadingBar">
                     <div class="mdl-spinner mdl-js-spinner is-active"></div>
                 </div>
                 <div class="mdl-grid" id="visits"><!--Table generated will appear here--></div>

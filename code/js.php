@@ -24,7 +24,10 @@ include "includes/head.inc.php";
          </div>
          <div class="mdl-card__supporting-text" id="browserVisits">
          </div>
-         <div id="loadingBrand"><img src="images/loading.gif"></div>
+         <div class="mdl-grid loading" id="loadingBrowsers">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+         </div>
+
       </div>
 
       <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
@@ -38,8 +41,10 @@ include "includes/head.inc.php";
          </div>
          <div class="mdl-card__supporting-text" id="brandVisits">
          </div>
+         <div class="mdl-grid loading" id="loadingBrand">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+         </div>
 
-<!--            <center><div id="loadingBrand"><img src="images/loading.gif"></div></center>-->
       </div>
 
    </div>
@@ -54,10 +59,12 @@ include "includes/head.inc.php";
             <select id="continentSelect" name="Continent"></select>
          </div>
          <div class="mdl-card__supporting-text" id="countryVisits">
-<!--            <center><div id="loadingCountry"><img src="images/loading.gif"></div></center>-->
+         </div>
+
+         <div class="mdl-grid loading" id="loadingCountry">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
          </div>
       </div>
-
    </div>
    
 </div>
