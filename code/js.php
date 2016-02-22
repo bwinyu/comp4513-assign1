@@ -1,4 +1,13 @@
 <?php
+/*
+ * Feb 23, 2016
+ *
+ * Baldwin Yu, Joseph Balatbat, Matt Grixti, Philip Young
+ * COMP-4513 Assignment 1 - Admin Dashboard Hme Page - JS home page
+ *
+ * This page is the front-end code for the JS home page
+ */
+
 $headertext = "Home - JS Version";
 include "includes/head.inc.php";
 ?>
@@ -14,7 +23,7 @@ include "includes/head.inc.php";
             <h2 class="mdl-card__title-text">Browser Visits</h2>
          </div>
          <div class="mdl-card__supporting-text" id="browserVisits">
-            
+
          </div>
       </div>
 
@@ -26,8 +35,9 @@ include "includes/head.inc.php";
             
          </div>
          <div class="mdl-card__supporting-text" id="brandVisits">
-            
          </div>
+
+            <center><div id="loadingBrand"><img src="images/loading.gif"></div></center>
       </div>
 
    </div>
@@ -38,11 +48,11 @@ include "includes/head.inc.php";
          <div class="mdl-card__title mdl-color--teal-500">
             <h2 class="mdl-card__title-text">Country Visits</h2>
          </div>
-         <div class="mdl-card__actions mdl-card--border" id="countryDropdown">
+         <div class="mdl-card__actions mdl-card--border" id="continentDropdown">
 
          </div>
          <div class="mdl-card__supporting-text" id="countryVisits">
-         
+            <center><div id="loadingCountry"><img src="images/loading.gif"></div></center>
          </div>
       </div>
 
