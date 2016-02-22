@@ -86,4 +86,18 @@ class CountriesTableGateway extends TableDataGateway
             return $this->convertRecordsToObjects($results);
     }
 
+    public function fetchCountryNamesTop10Visits(){
+        $sql = 'SELECT Count(visits.id) AS Visits_Count, countries.CountryName
+                FROM countries INNER JOIN visits ON countries.ISO = visits.country_code
+                GROUP BY countries.CountryName
+                ORDER BY Count(visits.id) DESC
+                LIMIT 10;';
+
+        $results = $this->dbAdapter->fetchAsArray($sql);
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
 }?>

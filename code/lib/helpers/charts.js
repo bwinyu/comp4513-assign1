@@ -27,7 +27,6 @@ $(function() {
         chartArrayData.push(['Date', 'Visits']);
 
         for (var i = 1; i < jsonData.length; i++){
-            console.log (parseInt(jsonData[i].Visits));
             var dateStr = jsonData[i].Date.split("-");
 
             var day = parseInt(dateStr[2]);
@@ -48,37 +47,24 @@ $(function() {
     }
 
     function drawGeoChart() {
-        var shortMonth = $("#areaChartMonth").val();
+        var shortMonth = $("#geoChartMonth").val();
 
-        var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
+        var jsonData = jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + shortMonth);
 
         var chartArrayData = [];
-        chartArrayData.push(['Date', 'Visits']);
+        chartArrayData.push(['Country', 'Visits']);
 
         for (var i = 1; i < jsonData.length; i++){
-            console.log (parseInt(jsonData[i].Visits));
-            var dateStr = jsonData[i].Date.split("-");
-
-            var day = parseInt(dateStr[2]);
-            chartArrayData.push([day, parseInt(jsonData[i].Visits)]);
+            chartArrayData.push([jsonData[i].CountryName, parseInt(jsonData[i].Visits)]);
         }
 
-        var data = google.visualization.arrayToDataTable([
-            ['Country', 'Popularity'],
-            ['Germany', 200],
-            ['United States', 300],
-            ['Brazil', 400],
-            ['Canada', 500],
-            ['France', 600],
-            ['RU', 700]
-        ]);
+        var data = google.visualization.arrayToDataTable(chartArrayData);
 
         var options = {};
 
         var chart = new google.visualization.GeoChart(document.getElementById('geoChart'));
 
         chart.draw(data, options);
-
     }
 
     function drawBarChart(){
