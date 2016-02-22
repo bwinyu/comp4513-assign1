@@ -151,11 +151,12 @@ require_once('lib/helpers/visits-setup.inc.php');
 //}
 
 $gate = new VisitsTableGateway($dbAdapter);
-echo '<h3>Test countBy</h3>';
-$gate = new visitsTableGateway($dbAdapter);
-$result = $gate->visitsByDayForMonth('jan');
+echo '<h3>Test countryLike</h3>';
+$gate = new CountriesTableGateway($dbAdapter);
+$result = $gate->countryLike('ja');
 foreach ($result as $row) {
-    echo $row->Date .' - ' . $row->Visits . "<br/>";
+
+    echo $row->CountryName .' - ' . $row->ISO . "<br/>";
 }
 
 

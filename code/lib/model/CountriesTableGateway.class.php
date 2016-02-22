@@ -5,7 +5,7 @@
  */
 class CountriesTableGateway extends TableDataGateway
 {
-    public  function __construct($dbAdapter)
+    public function __construct($dbAdapter)
     {
         parent::__construct($dbAdapter);
     }
@@ -44,6 +44,7 @@ class CountriesTableGateway extends TableDataGateway
 
         return $results;
     }
+
     /**
      * Retrieves all countries and counts the number of IP visits from the visits table
      *
@@ -60,4 +61,16 @@ class CountriesTableGateway extends TableDataGateway
         else
             return $this->convertRecordsToObjects($results);
     }
+
+    public function countryLike($country)
+    {
+        $sql = $this->getSelectStatement() . ' WHERE CountryName LIKE ?';
+
+        $results = $this->dbAdapter->fetchAsArray($sql, '%' . $country . '%');
+        if (is_null($results))
+            return $results;
+        else
+            return $this->convertRecordsToObjects($results);
+    }
+
 }?>

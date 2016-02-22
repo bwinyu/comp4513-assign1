@@ -24,7 +24,7 @@
                <a class="mdl-navigation__link mdl-color-text--white" href="index.php">Home - PHP</a>
                <a class="mdl-navigation__link mdl-color-text--white" href="js.php">Home - JS</a>
                <a class="mdl-navigation__link mdl-color-text--white" href="about.php">About</a>
-               <a class="mdl-navigation__link mdl-color-text--white" href="browsers.php">Visit Browser</a>
+               <a class="mdl-navigation__link mdl-color-text--white" href="visitsBrowser.php">Visit Browser</a>
                <a class="mdl-navigation__link mdl-color-text--white" href="charts.php">Charts</a>
             </nav>
          </div>
