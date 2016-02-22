@@ -35,12 +35,12 @@ function createTable ($headers, $tableData) {
  * Function that creates a dropdown list with IDs as values and names as text
  */
 function createDropdown ($dropdownarray, $arrayId, $arrayName, $selectGet, $selectName) {
-    $listHtml = "<select name=\"$selectGet\">";
-    $listHtml .= "<option value=\"\">Select $selectName</option>";
+    $listHtml = "<select class=\"select\" id=\"$selectGet\">";
+    $listHtml .= "<option  value=\"0\">Select $selectName</option>";
     foreach ($dropdownarray as $option) {
         $optionValue = $option->$arrayId;
         $optionText = $option->$arrayName;
-        $listHtml .= "<option value=\"$optionValue\">$optionText</option>";
+        $listHtml .= "<option value=\"$optionText\">$optionText</option>";
     }
     $listHtml .= "</select>";
     return $listHtml;
