@@ -145,16 +145,22 @@ function countData($userData, $actionType, $param)
                 {
                     $dataOutput = $CountriesToPull->filterByContinentCode($param);
                     echo json_encode($dataOutput);
+                    break;
                 }
-                elseif ($actionType == "")
+                elseif ($actionType == "countrieslike")
                 {
-//                    $dataOutput = $CountriesToPull->visitsByCountry();
+                    $dataOutput = $CountriesToPull->countryLike($param);
+                    echo json_encode($dataOutput);
+                    break;
                 }
-
+                else if ($actionType == "visitsbycountry")
+                {
+                    
+                }
+                else
+                    echo null;
             break;
-
         }
-
     }
 }
 ?>
