@@ -108,7 +108,7 @@ function processCountryDropdown(continentList){
 	for (var i = 0; i < continentList.length; i++) {
 		continentResults[continentList[i].ContinentCode] = continentList[i].ContinentName;
 	}
-	$("#continentSelect").html (createDropdown (continentResults, "ContinentCode", "ContinentName", "continentCode", "Continent", "continentSelect"));
+	$("#continentSelect").html (createDropdown (continentResults, "ContinentCode", "Continent"));
 }
 
 function processBrandDropdown(brandList){
@@ -116,7 +116,7 @@ function processBrandDropdown(brandList){
 	for (var i = 0; i < brandList.length; i++) {
 		brandResults[brandList[i].id] = brandList[i].name;
 	}
-	$("#brandSelect").html (createDropdown (brandResults, "id", "name", "brandId", "Brand", "brandSelect"));
+	$("#brandSelect").html (createDropdown (brandResults, "id", "Brand"));
 }
 
 function processBrowserResults(browserList){
@@ -177,7 +177,7 @@ function createTable (headers, tableData) {
  * Function that generates a dropdown list based on the dropdown array,
  * array id, array name, select get id, select name, and select id
  */
-function createDropdown (dropdownarray, arrayId, arrayName, selectGet, selectName, selectId) {
+function createDropdown (dropdownarray, selectName) {
    var listHtml = "";
    listHtml += "<option selected disabled value=\"\">Select " + selectName + "</option>";
    for (var key in dropdownarray) {
