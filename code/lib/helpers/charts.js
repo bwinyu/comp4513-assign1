@@ -13,7 +13,7 @@ $(function() {
 
     $("#geoChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawGeoChart);
-        drawAreaChart();
+        drawGeoChart();
     })
 
     $("#colChartBtn").click(function() {
@@ -40,18 +40,18 @@ $(function() {
 
         var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
 
-        var chartArrayData = [];
-        chartArrayData.push(['Date', 'Visits']);
+        var areaChartArrayData = [];
+        areaChartArrayData.push(['Date', 'Visits']);
 
         for (var i = 1; i < jsonData.length; i++){
             var dateStr = jsonData[i].Date.split("-");
 
             var day = parseInt(dateStr[2]);
-                chartArrayData.push([day, parseInt(jsonData[i].Visits)]);
+                areaChartArrayData.push([day, parseInt(jsonData[i].Visits)]);
             }
 
 
-        var data = google.visualization.arrayToDataTable(chartArrayData);
+        var data = google.visualization.arrayToDataTable(areaChartArrayData);
         var currMonth = $("#areaChartMonth option:selected").text();
         var options = {
             title: currMonth + ' Visits',
@@ -68,14 +68,14 @@ $(function() {
 
         var jsonData = jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + shortMonth);
 
-        var chartArrayData = [];
-        chartArrayData.push(['Country', 'Visits']);
+        var geoChartArrayData = [];
+        geoChartArrayData.push(['Country', 'Visits']);
 
         for (var i = 1; i < jsonData.length; i++){
-            chartArrayData.push([jsonData[i].CountryName, parseInt(jsonData[i].Visits)]);
+            geoChartArrayData.push([jsonData[i].CountryName, parseInt(jsonData[i].Visits)]);
         }
 
-        var data = google.visualization.arrayToDataTable(chartArrayData);
+        var data = google.visualization.arrayToDataTable(geoChartArrayData);
 
         var options = {};
 
@@ -92,7 +92,9 @@ $(function() {
 
         if($.inArray('Not Selected', countries) && !countriesEqual(countries)) {
 
-            var chartArrayData = [];
+            colChartArrayData = [];
+            revChartArrayData = [];
+
             var countriesParam = "";
 
             for(var i = 0; i< countries.length; i++){
@@ -103,21 +105,21 @@ $(function() {
 
             var jsonData = jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam);
 
-            chartArrayData.push(['Month', jsonData[0].CountryName, jsonData[1].CountryName, jsonData[2].CountryName]);
+            colChartArrayData.push(['Month', jsonData[0].CountryName, jsonData[1].CountryName, jsonData[2].CountryName]);
+            revChartArrayData.push(['Country', jsonData[0].MonthName, jsonData[1].MonthName, jsonData[2].MonthName]);
 
             for (var i = 0; i < jsonData.length; i+=3){
-                chartArrayData.push([jsonData[i].MonthName, jsonData[i].Visits, jsonData[i+1].Visits, jsonData[i+2].Visits]);
+                colChartArrayData.push([jsonData[i].MonthName, jsonData[i].Visits, jsonData[i+1].Visits, jsonData[i+2].Visits]);
             }
 
-            var data = google.visualization.arrayToDataTable(chartArrayData);
+            var data = google.visualization.arrayToDataTable(colChartArrayData);
 
             var currYear = new Date().getFullYear();
 
             var options = {
                 chart: {
                     title: 'Site Visits',
-                    subtitle: currYear,
-                    reverseData: true
+                    subtitle: currYear
                 },
             };
 
@@ -129,8 +131,7 @@ $(function() {
             if(countriesEqual(countries)){
                 alert("You cannot have two of the same countries selected!");
             }
-            else
-            {
+            else {
                 alert("Please fill in all three countries");
             }
         }
