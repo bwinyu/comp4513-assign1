@@ -9,7 +9,6 @@ include "includes/charts.inc.php";
 <script type="text/javascript" src="lib/helpers/charts.js"></script>
 
     <div class="page-content mdl-grid">
-<!--        <form name="areaChart" onsubmit="drawAreaChart()" method="get">-->
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
                 <div class="mdl-card__title mdl-color--teal-500">
                     <h2 class="mdl-card__title-text">Visits Per Month</h2>
@@ -22,9 +21,11 @@ include "includes/charts.inc.php";
                     <input class="mdl-button mdl-button--raised mdl-button--accent" id="areaChartBtn" type="submit" value="Submit">
                     <div id = "areaChart">
                     </div>
+                    <div class="mdl-grid loading" id="areaChartLoad">
+                        <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                    </div>
                 </div>
             </div>
-<!--        </form>-->
 
         <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             <div class="mdl-card__title mdl-color--teal-500">
@@ -37,6 +38,9 @@ include "includes/charts.inc.php";
                 ?>
                 <input class="mdl-button mdl-button--raised mdl-button--accent" id="geoChartBtn" type="submit" value="Submit">
                 <div id = "geoChart">
+                </div>
+                <div class="mdl-grid loading" id="geoChartLoad">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
                 </div>
             </div>
         </div>
@@ -52,7 +56,10 @@ include "includes/charts.inc.php";
                 <input class="mdl-button mdl-button--raised mdl-button--accent" id="colChartBtn" type="submit" value="Chart It">
 
                 <input class="mdl-button mdl-button--raised mdl-button--accent" id="switchBarChartAxisBtn" type="submit" value="Switch">
-                <div id = "colChart"  style="width: 900px; height: 500px;">
+                <div id = "colChart">
+                </div>
+                <div class="mdl-grid loading" id="colChartLoad">
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
                 </div>
             </div>
         </div>

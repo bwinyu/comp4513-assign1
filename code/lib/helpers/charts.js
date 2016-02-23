@@ -5,18 +5,44 @@ google.charts.load('current', {packages: ['corechart' , 'geochart', 'bar']});
 $(function() {
 
     $("#switchBarChartAxisBtn").hide();
-    loadCountryDropdowns();
+    jsonRequest("api.php?data=countries&action=fetchcountrynamestop10visits", "", "", "countryList");
 
     $("#areaChartBtn").click(function() {
-        google.charts.setOnLoadCallback(drawAreaChart);
+        var shortMonth = $("#areaChartMonth").val();
+        jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth, "#areaChartLoad", "#areaChart", 'areaChart');
     })
 
     $("#geoChartBtn").click(function() {
-        google.charts.setOnLoadCallback(drawGeoChart);
+        var shortMonth = $("#geoChartMonth").val();
+        jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + shortMonth, "#geoChartLoad", "#geoChart", 'geoChart');
     })
 
     $("#colChartBtn").click(function() {
-        google.charts.setOnLoadCallback(drawColChart);
+        var countries = [];
+        countries.push($("#colChartCountrySelect1").val());
+        countries.push($("#colChartCountrySelect2").val());
+        countries.push($("#colChartCountrySelect3").val());
+
+
+        if($.inArray('Not Selected', countries) == -1 && !countriesEqual(countries)) {
+
+            countriesParam = "";
+
+            for (var i = 0; i < countries.length; i++) {
+                countriesParam += countries[i] + ",";
+            }
+            countriesParam = countriesParam.slice(0, -1);
+
+            jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam, "#colChartLoad", "#colChart", 'colChart');
+        }
+        else {
+            if($.inArray('Not Selected', countries) != -1){
+                alert("Please select all three countries");
+            }
+            else{
+                alert("You cannot have two of the same countries selected");
+            }
+        }
     })
 
 
@@ -27,15 +53,15 @@ $(function() {
         } else {
             switchClick = true;
         }
-        drawColChart();
+        jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam, "#colChartLoad", "#colChart", 'colChart');
     })
 
-    function loadCountryDropdowns(){
+    function loadCountryDropdowns(countryList){
         $(".countrySelect").append ($('<option>', {
             text: 'Select a country',
             value: 'Not Selected'
         }));
-        var countryList = jsonRequest("api.php?data=countries&action=fetchcountrynamestop10visits");
+
         $.each(countryList, function(key, value) {
             $(".countrySelect").append ($('<option>', {
                 text: countryList[key].CountryName,
@@ -44,10 +70,7 @@ $(function() {
         });
     }
 
-    function drawAreaChart() {
-        var shortMonth = $("#areaChartMonth").val();
-
-        var jsonData = jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth);
+    function drawAreaChart(jsonData) {
 
         var areaChartArrayData = [];
         areaChartArrayData.push(['Date', 'Visits']);
@@ -72,10 +95,11 @@ $(function() {
         chart.draw(data, options);
     }
 
-    function drawGeoChart() {
-        var shortMonth = $("#geoChartMonth").val();
+    function drawGeoChart(jsonData) {
 
-        var jsonData = jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + shortMonth);
+        //var shortMonth = $("#geoChartMonth").val();
+        //
+        //var jsonData = jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + shortMonth, "#geoChartLoad", "#geoChart");
 
         var geoChartArrayData = [];
         geoChartArrayData.push(['Country', 'Visits']);
@@ -93,33 +117,36 @@ $(function() {
         chart.draw(data, options);
     }
 
-    function drawColChart(){
-        var countries = [];
-        countries.push($("#colChartCountrySelect1").val());
-        countries.push($("#colChartCountrySelect2").val());
-        countries.push($("#colChartCountrySelect3").val());
+    function drawColChart(jsonData){
 
-        if($.inArray('Not Selected', countries) && !countriesEqual(countries)) {
+        //var countries = [];
+        //countries.push($("#colChartCountrySelect1").val());
+        //countries.push($("#colChartCountrySelect2").val());
+        //countries.push($("#colChartCountrySelect3").val());
 
+        //if($.inArray('Not Selected', countries) && !countriesEqual(countries)) {
             colChartArrayData = [];
             revChartArrayData = [];
 
-            var countriesParam = "";
+            //var countriesParam = "";
+            //
+            //for(var i = 0; i< countries.length; i++){
+            //    console.log(countries[i]);
+            //    countriesParam += countries[i] + ",";
+            //}
+            //countriesParam = countriesParam.slice(0, -1);
+            //
+            //var jsonData = jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam, "#colChartLoad", "#colChart");
 
-            for(var i = 0; i< countries.length; i++){
-                console.log(countries[i]);
-                countriesParam += countries[i] + ",";
-            }
-            countriesParam = countriesParam.slice(0, -1);
-
-            var jsonData = jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam);
-
+            //build regular chart shown when chart it is pressed
             colChartArrayData.push(['Month', jsonData[0].CountryName, jsonData[1].CountryName, jsonData[2].CountryName]);
-            revChartArrayData.push(['Country', jsonData[0].MonthName, jsonData[3].MonthName, jsonData[6].MonthName]);
 
             for (var i = 0; i < jsonData.length; i+=3){
                 colChartArrayData.push([jsonData[i].MonthName, parseInt(jsonData[i].Visits), parseInt(jsonData[i+1].Visits), parseInt(jsonData[i+2].Visits)]);
             }
+
+            //build reverse chart when switch button is pressed
+            revChartArrayData.push(['Country', jsonData[0].MonthName, jsonData[3].MonthName, jsonData[6].MonthName]);
 
             for (var i = 0; i < 3; i++){
                 revChartArrayData.push([jsonData[i].CountryName, parseInt(jsonData[i].Visits), parseInt(jsonData[i+3].Visits), parseInt(jsonData[i+6].Visits)]);
@@ -148,39 +175,66 @@ $(function() {
 
             $("#switchBarChartAxisBtn").show();
         }
-        else {
-            if(countriesEqual(countries)){
-                alert("You cannot have two of the same countries selected!");
-            }
-            else {
-                alert("Please fill in all three countries");
-            }
-        }
-    }
+        //else {
+        //    if(countriesEqual(countries)){
+        //        alert("You cannot have two of the same countries selected!");
+        //    }
+        //    else {
+        //        alert("Please fill in all three countries");
+        //    }
+        //}
 
     function countriesEqual(countries){
         var equal = false;
-        for(var i = 0; i<countries.length; i++){
-            if((i+1)<= countries.length){
-                if(countries[i] == countries[i+1]){
-                    equal=true;
+
+        if(countries[0]==countries[2]){
+            equal = true;
+        }
+        else{
+            for(var i = 0; i<countries.length; i++){
+                if((i+1)<= countries.length){
+                    if(countries[i] == countries[i+1]){
+                        equal=true;
+                    }
                 }
             }
         }
         return equal;
     }
 
-    function jsonRequest (url) {
+    function jsonRequest (url, loadingId, chartId, requestType) {
         return (function () {
             var result = null;
             $.ajax({
-                'async': false,
+                'async': true,
                 'global': false,
                 'url': url,
                 'dataType': "json",
+                'beforeSend': function(){
+                    $(loadingId).show();
+                    $(chartId).hide();
+                },
                 'success': function (data) {
+                    switch(requestType) {
+                        case 'areaChart':
+                            google.charts.setOnLoadCallback(function() {drawAreaChart(data)});
+                            break;
+                        case 'geoChart':
+                            google.charts.setOnLoadCallback(function() {drawGeoChart(data)});
+                            break;
+                        case 'colChart':
+                            google.charts.setOnLoadCallback(function() {drawColChart(data)});
+                            break;
+                        case 'countryList':
+                            loadCountryDropdowns(data);
+                        default:
+
+                    }
                     result = data;
                 }
+            }).done(function () {
+                $(loadingId).hide();
+                $(chartId).show();
             });
             return result;
         })();
