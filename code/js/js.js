@@ -26,7 +26,7 @@ $(document).ready (function () {
 	/*
 	 * Retrieves all visit information to be used for browser visits table
 	 */
-	jsonRequest("api.php?data=Browsers", "#loadingBrowsers", "Browser", "#browserVisits");
+	jsonRequest("api.php?data=browsers&action=visitsbybrowser", "#loadingBrowsers", "Browser", "#browserVisits");
 
 
 	/********** ON CHANGE **********/
@@ -85,23 +85,6 @@ function jsonRequest (url, loadingId, requestType, tableId) {
 	})();
 }
 
-function jsonRequestForCounts (url) {
-	return (function () {
-		var result = null;
-		$.ajax({
-			'async': false,
-			'global': false,
-			'url': url,
-			'dataType': "json",
-			'success': function (data) {
-
-
-				result = data;
-			}
-		});
-		return result;
-	})();
-}
 
 function processCountryDropdown(continentList){
 	var continentResults = [];
@@ -123,7 +106,7 @@ function processBrowserResults(browserList){
 	var browserResults = [];
 	var totalVisits = 0.0;
 	for (var i = 0; i < browserList.length; i++) {
-		browserResults[browserList[i].name] = jsonRequestForCounts("api.php?data=Visits&action=countbybrowser&param=" + browserList[i].id);
+		browserResults[browserList[i].name] = browserList[i].Visits;
 		totalVisits += parseFloat (browserResults[browserList[i].name]);
 	}
 	for (var key in browserResults) {
