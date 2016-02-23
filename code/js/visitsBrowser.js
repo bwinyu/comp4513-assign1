@@ -11,9 +11,13 @@ $(function(){
         list: {
             match: {
                 enabled: true
+            },
+            showAnimation: {
+                type: "fade", //normal|slide|fade
+                time: 400,
+                callback: function() {}
             }
-        },
-        theme: "square"
+        }
     };
 
     $.get('api.php?data=countries&action=fetchcountrynames',
@@ -22,7 +26,7 @@ $(function(){
                 options.data.push(obj.CountryName);
             });
 
-            $('#country').easyAutocomplete(options);
+            $('#countryText').easyAutocomplete(options);
         });
 
     $('#filters').change(function(){
@@ -44,7 +48,7 @@ $(function(){
         });
 
 
-        var country = $('#country').val();
+        var country = $('#countryText').val();
 
         if(country != '') {
             hasParam = true;
@@ -104,7 +108,7 @@ function createTable (headers, tableData) {
             tableHtml += "<td class=\"mdl-data-table__cell--non-numeric\">" + tableData[row].Time + "</td>";
             tableHtml += "<td class=\"mdl-data-table__cell--non-numeric\">" + tableData[row].ip_address + "</td>";
             tableHtml += "<td class=\"mdl-data-table__cell--non-numeric\">" + tableData[row].Country + "</td>";
-            tableHtml += "<td><button id=\"" + tableData[row].id + "\" class=\"rowButton mdl-button mdl-js-button mdl-button--raised\">More</button></td>";
+            tableHtml += "<td><i id=\"" + tableData[row].id + "\" class=\"material-icons rowButton \">info_outline</i></td>";
             tableHtml += "</tr>";
 
         }

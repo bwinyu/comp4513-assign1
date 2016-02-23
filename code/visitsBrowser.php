@@ -18,7 +18,7 @@ include "includes/visitsBrowser.inc.php";
 <script src="js/jquery.easy-autocomplete.min.js"></script>
 <div class="page-content mdl-grid">
 
-    <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--3-col">
 
         <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             <div class="mdl-card__title mdl-color--teal-500">
@@ -28,26 +28,36 @@ include "includes/visitsBrowser.inc.php";
 
             <div class="mdl-card__supporting-text" id="filters">
                 <div class="mdl-card__actions mdl-card--border">
-                    <input id="country" placeholder="Country Search" autocomplete="off" name="Country"/>
-                    <table>
+
+                    <table class="filterTable">
                         <tr>
+                            <td>
+                                <div>
+                                    <input id="countryText" placeholder="Country Search" autocomplete="off" name="Country"/>
+                                </div>
+                                <div class="easy-autocomplete-container">
+
+                                </div>
+                            </td>
+
+
                             <?php
                             /*
                              * Generate dropdown lists
                              */
-                            echo '<td>' . createDropdown ($typesList, "id", "name", "DeviceType", "Device Type") . '</td>';
-                            echo '<td>' . createDropdown ($brandList, "id", "name", "DeviceBrand", "Brand Type") . '</td>';
-                            echo '<td>' . createDropdown ($browserList, "id", "name", "Browser", "Browser Name") . '</td>';
-                            echo '<td>' . createDropdown ($referrerList, "id", "name", "Referrer", "Referrer Name") . '</td>';
-                            echo '<td>' . createDropdown ($osList, "id", "name", "OS", "OS Name") . '</td>';
+                            echo '<tr><td>' . createDropdown ($typesList, "id", "name", "DeviceType", "Device Type") . '</td></tr>';
+                            echo '<tr><td>' . createDropdown ($brandList, "id", "name", "DeviceBrand", "Brand Type") . '</td></tr>';
+                            echo '<tr><td>' . createDropdown ($browserList, "id", "name", "Browser", "Browser Name") . '</td></tr>';
+                            echo '<tr><td>' . createDropdown ($referrerList, "id", "name", "Referrer", "Referrer Name") . '</td></tr>';
+                            echo '<tr><td>' . createDropdown ($osList, "id", "name", "OS", "OS Name") . '</td></tr>';
                             ?>
-                        </tr>
+
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--9-col">
         <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             <div class="mdl-card__title mdl-color--teal-500">
                 <h2 class="mdl-card__title-text">Visits</h2>

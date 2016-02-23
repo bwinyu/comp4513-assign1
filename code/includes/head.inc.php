@@ -17,8 +17,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.css">
       <link rel="stylesheet" href="css/styles.css">
-      <link re;="stylesheet" href="css/easy-autocomplete.min.css">
-      <link re;="stylesheet" href="css/easy-autocomplete.themes.min.css">
+      <link rel="stylesheet" href="css/easy-autocomplete.min.css">
       <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
@@ -38,9 +37,9 @@
             <nav class="mdl-navigation mdl-color--blue-grey-800">
                <a class="mdl-navigation__link mdl-color-text--white" href="index.php">Home - PHP</a>
                <a class="mdl-navigation__link mdl-color-text--white" href="js.php">Home - JS</a>
-               <a class="mdl-navigation__link mdl-color-text--white" href="about.php">About</a>
                <a class="mdl-navigation__link mdl-color-text--white" href="visitsBrowser.php">Visit Browser</a>
                <a class="mdl-navigation__link mdl-color-text--white" href="charts.php">Charts</a>
+               <a class="mdl-navigation__link mdl-color-text--white" href="about.php">About</a>
             </nav>
          </div>
 			
