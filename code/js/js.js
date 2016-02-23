@@ -16,17 +16,17 @@ $(document).ready (function () {
 	$("#loadingBrand").hide ();
 	$("#loadingCountry").hide ();
 
-	jsonRequest ("api.php?data=Devicebrand", '#loadingBrand', 'BrandDropdown');
+	jsonRequest ("api.php?data=Devicebrand", '#loadingBrand', 'BrandDropdown', "#brandVisits");
 
 	/*
 	 * Retrieves all country information to be used for country visits dropdown
 	 */
-	jsonRequest ("api.php?data=Continents", '#loadingCountry', 'CountryDropdown');
+	jsonRequest ("api.php?data=Continents", '#loadingCountry', 'CountryDropdown', "#countryVisits");
 
 	/*
 	 * Retrieves all visit information to be used for browser visits table
 	 */
-	jsonRequest("api.php?data=Browsers", "#loadingBrowsers", "Browser");
+	jsonRequest("api.php?data=Browsers", "#loadingBrowsers", "Browser", "#browserVisits");
 
 
 	/********** ON CHANGE **********/
@@ -34,32 +34,32 @@ $(document).ready (function () {
 	 * Creates brand visits table when select is changed for brand dropdown
 	 */
 	$("#brandSelect").on ("change", function () {
-		jsonRequest ("api.php?data=Visits&action=countbydevicebrand&param=" + this.value, "#loadingBrand", 'Brand');
+		jsonRequest ("api.php?data=Visits&action=countbydevicebrand&param=" + this.value, "#loadingBrand", 'Brand', "#brandVisits");
 	});
 
 	/*
 	 * Creates country visits table when select is changed for continent dropdown
 	 */
 	$("#continentSelect").on ("change", function () {
-		jsonRequest ("api.php?data=countries&action=visitsbycountryfromcontinent&param=" + this.value,"#loadingCountry", 'Country');
+		jsonRequest ("api.php?data=countries&action=visitsbycountryfromcontinent&param=" + this.value,"#loadingCountry", 'Country', "#countryVisits");
 	});
 });
 
 /*
  * Function that returns the data in a JSON request and displays loading gif
  */
-function jsonRequest (url, loadingId, requestType) {
+function jsonRequest (url, loadingId, requestType, tableId) {
 	console.log(requestType + '  ' + loadingId + ' - '+url);
 	return (function () {
 		var result = null;
-		$(loadingId).show ();
 		$.ajax({
 			'async': true,
 	        'global': false,
 	        'url': url,
 	        'dataType': "json",
 			'beforeSend': function(){
-				$(loadingId).show();
+				$(loadingId).show ();
+				$(tableId).hide ();
 			},
 	        'success': function (data) {
 
@@ -79,6 +79,7 @@ function jsonRequest (url, loadingId, requestType) {
 	        }
 		}).done(function(){
 			$(loadingId).hide ();
+			$(tableId).show ();
 		});
 		return result;
 	})();
