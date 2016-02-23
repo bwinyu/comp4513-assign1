@@ -23,7 +23,6 @@ include "includes/head.inc.php";
       <ul>
          <li><a href="https://www.getmdl.io/">Material Design Lite</a> - CSS Framework</li>
          <li><a href="https://www.getmdl.io/templates/dashboard/index.html">MDL Admin Dashboard Template</a> - Used as a reference to create Admin Dashboard layout</li>
-         <li><a href="https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif">Light Blue Material Design Loading GIF</a></li>
          <li><a href="http://www.w3schools.com/howto/howto_css_modals.asp">Modal Box</a> - Used as a reference to create modal dialog</li>
          <li><a href="http://easyautocomplete.com/">Easy Auto Complete</a> - Used for auto complete textbox on visits  Browser page.</li>
       </ul>
