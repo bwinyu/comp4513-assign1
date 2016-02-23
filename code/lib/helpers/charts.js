@@ -4,20 +4,29 @@ google.charts.load('current', {packages: ['corechart' , 'geochart', 'bar']});
 
 $(function() {
 
+    $("#switchBarChartAxisBtn").hide();
     loadCountryDropdowns();
 
     $("#areaChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawAreaChart);
-        drawAreaChart();
     })
 
     $("#geoChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawGeoChart);
-        drawGeoChart();
     })
 
     $("#colChartBtn").click(function() {
         google.charts.setOnLoadCallback(drawColChart);
+    })
+
+
+    switchClick = false;
+    $("#switchBarChartAxisBtn").click(function() {
+        if (switchClick) {
+            switchClick = false;
+        } else {
+            switchClick = true;
+        }
         drawColChart();
     })
 
@@ -106,13 +115,23 @@ $(function() {
             var jsonData = jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam);
 
             colChartArrayData.push(['Month', jsonData[0].CountryName, jsonData[1].CountryName, jsonData[2].CountryName]);
-            revChartArrayData.push(['Country', jsonData[0].MonthName, jsonData[1].MonthName, jsonData[2].MonthName]);
+            revChartArrayData.push(['Country', jsonData[0].MonthName, jsonData[3].MonthName, jsonData[6].MonthName]);
 
             for (var i = 0; i < jsonData.length; i+=3){
-                colChartArrayData.push([jsonData[i].MonthName, jsonData[i].Visits, jsonData[i+1].Visits, jsonData[i+2].Visits]);
+                colChartArrayData.push([jsonData[i].MonthName, parseInt(jsonData[i].Visits), parseInt(jsonData[i+1].Visits), parseInt(jsonData[i+2].Visits)]);
             }
 
-            var data = google.visualization.arrayToDataTable(colChartArrayData);
+            for (var i = 0; i < 3; i++){
+                revChartArrayData.push([jsonData[i].CountryName, parseInt(jsonData[i].Visits), parseInt(jsonData[i+3].Visits), parseInt(jsonData[i+6].Visits)]);
+            }
+
+
+            if (switchClick) {
+                var data = google.visualization.arrayToDataTable(revChartArrayData);
+            } else {
+                var data = google.visualization.arrayToDataTable(colChartArrayData);
+            }
+
 
             var currYear = new Date().getFullYear();
 
@@ -126,6 +145,8 @@ $(function() {
             var chart = new google.charts.Bar(document.getElementById('colChart'));
 
             chart.draw(data, options);
+
+            $("#switchBarChartAxisBtn").show();
         }
         else {
             if(countriesEqual(countries)){
