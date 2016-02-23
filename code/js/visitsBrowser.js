@@ -4,6 +4,8 @@
 
 
 $(function(){
+    jsonRequest ('api.php?data=visits&action=filtervisitsdata');
+
     var options={
         data: [],
         list: {
@@ -55,7 +57,6 @@ $(function(){
             url+=param + param2;
         }
 
-        console.log(url);
         /*
          * Fetch all visit information based on filters
          */

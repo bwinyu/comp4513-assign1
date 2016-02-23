@@ -261,10 +261,10 @@ class VisitsTableGateway extends TableDataGateway
             }
             // Using HAVING instead of WHERE since it recognizes aliases
             $sql.=' HAVING ' . $clause;
-            $sql.= ' ORDER BY Date, Time';
+
         }
 
-        $sql.= ' LIMIT 100';
+        $sql.= ' ORDER BY Date DESC, Time DESC LIMIT 100';
 
 
 
