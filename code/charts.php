@@ -14,11 +14,13 @@ include "includes/charts.inc.php";
                     <h2 class="mdl-card__title-text">Visits Per Month</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                    Select a month to view visits:
-                        <?php
-                            echo createMonthDropdown("areaChartMonth");
-                        ?>
-                    <input class="mdl-button mdl-button--raised mdl-button--accent" id="areaChartBtn" type="submit" value="Submit">
+                    <div  id = "chartSubmitSpacing">
+                        Select a month to view visits:
+                            <?php
+                                echo createMonthDropdown("areaChartMonth");
+                            ?>
+                        <input class="mdl-button mdl-button--raised mdl-button--accent" id="areaChartBtn" type="submit" value="Submit">
+                    </div>
                     <div id = "areaChart">
                     </div>
                     <div class="mdl-grid loading" id="areaChartLoad">
@@ -32,12 +34,14 @@ include "includes/charts.inc.php";
                 <h2 class="mdl-card__title-text">Geo Chart</h2>
             </div>
             <div class="mdl-card__supporting-text">
-                Select a month to view Geographic Data for visits:
-                <?php
-                    echo createMonthDropdown("geoChartMonth");
-                ?>
-                <input class="mdl-button mdl-button--raised mdl-button--accent" id="geoChartBtn" type="submit" value="Submit">
-                <div id = "geoChart">
+                <div id = "chartSubmitSpacing">
+                    Select a month to view Geographic Data for visits:
+                    <?php
+                        echo createMonthDropdown("geoChartMonth");
+                    ?>
+                    <input class="mdl-button mdl-button--raised mdl-button--accent" id="geoChartBtn" type="submit" value="Submit">
+                </div>
+                    <div id = "geoChart">
                 </div>
                 <div class="mdl-grid loading" id="geoChartLoad">
                     <div class="mdl-spinner mdl-js-spinner is-active"></div>
@@ -50,12 +54,13 @@ include "includes/charts.inc.php";
                 <h2 class="mdl-card__title-text">Visit Data Column Chart</h2>
             </div>
             <div class="mdl-card__supporting-text">
-                <select id = "colChartCountrySelect1" class="countrySelect"></select>
-                <select id = "colChartCountrySelect2" class="countrySelect"></select>
-                <select id = "colChartCountrySelect3" class="countrySelect"></select>
-                <input class="mdl-button mdl-button--raised mdl-button--accent" id="colChartBtn" type="submit" value="Chart It">
-
+                <div id = "chartSubmitSpacing">
+                    <select id = "colChartCountrySelect1" class="countrySelect"></select>
+                    <select id = "colChartCountrySelect2" class="countrySelect"></select>
+                    <select id = "colChartCountrySelect3" class="countrySelect"></select>
+                    <input class="mdl-button mdl-button--raised mdl-button--accent" id="colChartBtn" type="submit" value="Chart It">
                 <input class="mdl-button mdl-button--raised mdl-button--accent" id="switchBarChartAxisBtn" type="submit" value="Switch">
+                </div>
                 <div id = "colChart">
                 </div>
                 <div class="mdl-grid loading" id="colChartLoad">
@@ -65,5 +70,9 @@ include "includes/charts.inc.php";
         </div>
     </div>
 
+    <div id="snackbar-error" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
 
 <?php include "includes/footer.inc.php" ?>

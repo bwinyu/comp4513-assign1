@@ -37,10 +37,10 @@ $(function() {
         }
         else {
             if($.inArray('Not Selected', countries) != -1){
-                alert("Please select all three countries");
+                errorMsg("Please select all three countries.");
             }
             else{
-                alert("You cannot have two of the same countries selected");
+                errorMsg("You cannot have two of the same countries selected.");
             }
         }
     })
@@ -88,7 +88,9 @@ $(function() {
         var options = {
             title: currMonth + ' Visits',
             hAxis: {title: 'Day',  titleTextStyle: {color: '#333'}},
-            vAxis: {minValue: 0}
+            vAxis: {minValue: 0},
+            width: 900,
+            height: 500
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('areaChart'));
@@ -110,7 +112,7 @@ $(function() {
 
         var data = google.visualization.arrayToDataTable(geoChartArrayData);
 
-        var options = {};
+        var options = {width: 900, height: 500};
 
         var chart = new google.visualization.GeoChart(document.getElementById('geoChart'));
 
@@ -119,24 +121,8 @@ $(function() {
 
     function drawColChart(jsonData){
 
-        //var countries = [];
-        //countries.push($("#colChartCountrySelect1").val());
-        //countries.push($("#colChartCountrySelect2").val());
-        //countries.push($("#colChartCountrySelect3").val());
-
-        //if($.inArray('Not Selected', countries) && !countriesEqual(countries)) {
             colChartArrayData = [];
             revChartArrayData = [];
-
-            //var countriesParam = "";
-            //
-            //for(var i = 0; i< countries.length; i++){
-            //    console.log(countries[i]);
-            //    countriesParam += countries[i] + ",";
-            //}
-            //countriesParam = countriesParam.slice(0, -1);
-            //
-            //var jsonData = jsonRequest("api.php?data=visits&action=visitsforbarchart&param=" + countriesParam, "#colChartLoad", "#colChart");
 
             //build regular chart shown when chart it is pressed
             colChartArrayData.push(['Month', jsonData[0].CountryName, jsonData[1].CountryName, jsonData[2].CountryName]);
@@ -165,8 +151,10 @@ $(function() {
             var options = {
                 chart: {
                     title: 'Site Visits',
-                    subtitle: currYear
+                    subtitle: currYear,
                 },
+                width: 900,
+                height: 500
             };
 
             var chart = new google.charts.Bar(document.getElementById('colChart'));
@@ -175,14 +163,6 @@ $(function() {
 
             $("#switchBarChartAxisBtn").show();
         }
-        //else {
-        //    if(countriesEqual(countries)){
-        //        alert("You cannot have two of the same countries selected!");
-        //    }
-        //    else {
-        //        alert("Please fill in all three countries");
-        //    }
-        //}
 
     function countriesEqual(countries){
         var equal = false;
@@ -238,6 +218,17 @@ $(function() {
             });
             return result;
         })();
+    }
+
+    function errorMsg(msg) {
+        var snackbarContainer = document.querySelector('#snackbar-error');
+
+        var data = {
+            message: msg,
+            timeout: 5000
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
     }
 
 

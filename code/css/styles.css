@@ -41,7 +41,7 @@
     display: none;
 }
 
-#colChart{
+#colChart, #areaChart, #geoChart{
     width: 900px;
     height: 500px;
 }
@@ -52,4 +52,8 @@
 
 .rowButton {
     cursor: pointer;
+}
+
+#chartSubmitSpacing{
+    padding-bottom: 2em;
 }
