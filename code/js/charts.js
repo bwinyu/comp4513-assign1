@@ -7,12 +7,18 @@ $(function() {
     $("#switchBarChartAxisBtn").hide();
     jsonRequest("api.php?data=countries&action=fetchcountrynamestop10visits", "", "", "countryList");
 
-    $("#areaChartBtn").click(function() {
+    var areaShortMonth = $("#areaChartMonth").val();
+    jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + areaShortMonth, "#areaChartLoad", "#areaChart", 'areaChart');
+
+    var geoShortMonth = $("#geoChartMonth").val();
+    jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + geoShortMonth, "#geoChartLoad", "#geoChart", 'geoChart');
+
+    $("#areaChartMonth").change(function() {
         var shortMonth = $("#areaChartMonth").val();
         jsonRequest("api.php?data=visits&action=countmonthbyday&param=" + shortMonth, "#areaChartLoad", "#areaChart", 'areaChart');
     })
 
-    $("#geoChartBtn").click(function() {
+    $("#geoChartMonth").change(function() {
         var shortMonth = $("#geoChartMonth").val();
         jsonRequest("api.php?data=countries&action=visitsbycountry&param=" + shortMonth, "#geoChartLoad", "#geoChart", 'geoChart');
     })

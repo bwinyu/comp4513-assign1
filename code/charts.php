@@ -19,7 +19,6 @@ include "includes/charts.inc.php";
                             <?php
                                 echo createMonthDropdown("areaChartMonth");
                             ?>
-                        <input class="mdl-button mdl-button--raised mdl-button--accent" id="areaChartBtn" type="submit" value="Submit">
                     </div>
                     <div id = "areaChart">
                     </div>
@@ -39,7 +38,6 @@ include "includes/charts.inc.php";
                     <?php
                         echo createMonthDropdown("geoChartMonth");
                     ?>
-                    <input class="mdl-button mdl-button--raised mdl-button--accent" id="geoChartBtn" type="submit" value="Submit">
                 </div>
                     <div id = "geoChart">
                 </div>
