@@ -6,7 +6,7 @@ include "includes/charts.inc.php";
 <!-- Load JS for Google Charts -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="lib/helpers/charts.js"></script>
+<script type="text/javascript" src="js/charts.js"></script>
 
     <div class="page-content mdl-grid">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
